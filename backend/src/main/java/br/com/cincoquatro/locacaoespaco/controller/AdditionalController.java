@@ -27,7 +27,7 @@ import br.com.cincoquatro.locacaoespaco.util.ResponseUtil;
 import br.com.cincoquatro.locacaoespaco.util.SimplePage;
 
 @RestController
-@RequestMapping("/api/aditionals")
+@RequestMapping("/api/additionals")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class AdditionalController {
 

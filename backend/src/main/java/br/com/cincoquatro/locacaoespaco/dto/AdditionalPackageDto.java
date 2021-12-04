@@ -10,6 +10,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class AdditionalPackageDto {
+	
+	private Long id;
 
 	@NotEmpty
 	private String description;

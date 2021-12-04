@@ -14,6 +14,7 @@ public class AdditionalPackageAdapter extends BaseAdapter<AdditionalPackage, Add
 			return null;
 
 		AdditionalPackageDto additionalPackageDto = new AdditionalPackageDto();
+		additionalPackageDto.setId(additionalPackage.getId());
 		additionalPackageDto.setDescription(additionalPackage.getDescription());
 
 		return additionalPackageDto;
@@ -27,6 +28,7 @@ public class AdditionalPackageAdapter extends BaseAdapter<AdditionalPackage, Add
 		if (additionalPackage == null)
 			additionalPackage = new AdditionalPackage();
 
+		additionalPackage.setId(additionalPackageDto.getId());
 		additionalPackage.setDescription(additionalPackageDto.getDescription());
 
 		return additionalPackage;

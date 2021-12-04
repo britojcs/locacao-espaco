@@ -4,7 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -19,8 +20,13 @@ public class AdditionalPackage implements Serializable {
 
 	private static final long serialVersionUID = -96099506416573129L;
 
+	@Id
+	@Column(name = "additional_id")
+	private Long id;
+
 	@MapsId
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne
+	@JoinColumn(name = "additional_id")
 	private Additional additional;
 
 	@NotBlank

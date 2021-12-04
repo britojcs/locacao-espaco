@@ -6,8 +6,8 @@ import java.math.BigDecimal;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -39,7 +39,8 @@ public class Additional extends BaseEntityAudit implements Serializable {
 	@Column(name = "enabled", nullable = false)
 	private Boolean enabled = true;
 
-	@OneToOne(mappedBy = "additional", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+	@PrimaryKeyJoinColumn
+	@OneToOne(mappedBy = "additional", cascade = CascadeType.ALL)
 	private AdditionalPackage additionalPackage;
 
 }
