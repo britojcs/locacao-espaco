@@ -25,13 +25,10 @@ public class AdditionalDto {
 	private BigDecimal value;
 
 	@NotNull
-	private Boolean requiredAnyLease;
-	
-	@NotNull
-	private Boolean requiredMainLease;
-
-	@NotNull
 	private Boolean enabled;
+
+	@NotNull(message = "Informe a obrigatoriedade")
+	private AdditionalRequiredTypeDto requiredType;
 
 	private AdditionalPackageDto additionalPackage;
 

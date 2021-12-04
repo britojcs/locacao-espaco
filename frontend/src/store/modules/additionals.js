@@ -59,7 +59,8 @@ const mutations = {
     let additionalUpdated = state.additionals.find(item => item.id == additional.id);
     additionalUpdated.name = additional.name;
     additionalUpdated.value = additional.value;
-    additionalUpdated.required = additional.required;
+    additionalUpdated.requiredAnyLease = additional.requiredAnyLease;
+    additionalUpdated.requiredMainLease = additional.requiredMainLease;
     additionalUpdated.enabled = additional.enabled;
   },
   [DELETE_ADDITIONAL](state, id) {

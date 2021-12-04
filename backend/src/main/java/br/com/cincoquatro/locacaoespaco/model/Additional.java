@@ -6,12 +6,15 @@ import java.math.BigDecimal;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import br.com.cincoquatro.locacaoespaco.model.enums.AdditionalRequiredType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -31,13 +34,9 @@ public class Additional extends BaseEntityAudit implements Serializable {
 	@Column(name = "value")
 	private BigDecimal value;
 
-	@NotNull
-	@Column(name = "required_any_lease", nullable = false)
-	private Boolean requiredAnyLease = false;
-	
-	@NotNull
-	@Column(name = "required_main_lease", nullable = false)
-	private Boolean requiredMainLease = false;
+	@Enumerated(EnumType.STRING)
+	@Column(name = "required_type", length = 30)
+	private AdditionalRequiredType requiredType;
 
 	@NotNull
 	@Column(name = "enabled", nullable = false)
