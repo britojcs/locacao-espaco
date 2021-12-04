@@ -19,7 +19,7 @@
           >
             <template v-slot:top>
               <div class="d-flex align-center pa-4">
-                <span class="primary--text font-weight-medium">Espaços</span>
+                <span class="primary--text font-weight-medium">Adicionais</span>
                 <v-divider
                   class="mx-2 my-1"
                   inset
@@ -45,11 +45,11 @@
                     </v-card-title>
 
                     <v-card-text>
-                      <PlaceForm
-                        :place="editedPlace"
+                      <AdditionalForm
+                        :additional="editedAdditional"
                         :showCloseButton="true"
                         :onCloseClick="close"
-                        :onSubmitClick="savePlace"
+                        :onSubmitClick="saveAdditional"
                         :loading="loading"
                         ref="form"
                       />
@@ -71,8 +71,10 @@
               ></v-chip>
             </template>
             <template v-slot:[`item.action`]="{ item }">
-              <v-icon small class="mr-2" @click="editPlace(item)">edit</v-icon>
-              <v-icon small @click="deletePlace(item)">delete</v-icon>
+              <v-icon small class="mr-2" @click="editAdditional(item)"
+                >edit</v-icon
+              >
+              <v-icon small @click="deleteAdditional(item)">delete</v-icon>
             </template>
           </v-data-table>
         </v-flex>
@@ -84,15 +86,15 @@
 <script>
 import { mapState, mapActions } from "vuex";
 import {
-  LOAD_PLACES,
-  CREATE_PLACE,
-  EDIT_PLACE,
-  REMOVE_PLACE,
+  LOAD_ADDITIONALS,
+  CREATE_ADDITIONAL,
+  EDIT_ADDITIONAL,
+  REMOVE_ADDITIONAL,
 } from "@/store/_actiontypes";
-import PlaceForm from "@/views/place/PlaceForm";
+import AdditionalForm from "@/views/additional/AdditionalForm";
 
 export default {
-  components: { PlaceForm },
+  components: { AdditionalForm },
   data: () => ({
     loading: false,
     dialog: false,
@@ -101,41 +103,43 @@ export default {
     options: {},
     headers: [
       { text: "Código", value: "id", width: 90 /*, align: " d-none"*/ },
-      { text: "Nome", value: "name" },
-      { text: "Tipo de locação", value: "leaseType.description" },
+      { text: "Descrição", value: "name" },
       { text: "Valor", value: "value", width: 140 },
+      { text: "Obrigatório", value: "required", width: 120 },
       { text: "Ativo", value: "enabled", width: 80 },
       { text: "Ações", value: "action", sortable: false, width: 100 },
     ],
-    editedPlace: {
+    editedAdditional: {
       id: 0,
       name: "",
-      leaseType: {
-        name: "INDEPENDENT",
-        description: "Locação independente (Espaço principal)",
+      additionalPackage: {
+        description: "",
       },
       value: 0,
+      required: false,
       enabled: true,
     },
-    defaultPlace: {
+    defaultAdditional: {
       id: 0,
       name: "",
-      leaseType: {
-        name: "INDEPENDENT",
-        description: "Locação independente (Espaço principal)",
+      additionalPackage: {
+        description: "",
       },
       value: 0,
+      required: false,
       enabled: true,
     },
   }),
   computed: {
     ...mapState({
-      items: (state) => state.places.places,
-      totalElements: (state) => state.places.totalElements,
-      totalPages: (state) => state.places.totalPages,
+      items: (state) => state.additionals.additionals,
+      totalElements: (state) => state.additionals.totalElements,
+      totalPages: (state) => state.additionals.totalPages,
     }),
     formTitle() {
-      return this.editedPlace.id === 0 ? "Novo Espaço" : "Editar Espaço";
+      return this.editedAdditional.id === 0
+        ? "Novo Adicional"
+        : "Editar Adicional";
     },
   },
   watch: {
@@ -150,34 +154,34 @@ export default {
     deep: true,
   },
   methods: {
-    ...mapActions("places", [
-      LOAD_PLACES,
-      CREATE_PLACE,
-      EDIT_PLACE,
-      REMOVE_PLACE,
+    ...mapActions("additionals", [
+      LOAD_ADDITIONALS,
+      CREATE_ADDITIONAL,
+      EDIT_ADDITIONAL,
+      REMOVE_ADDITIONAL,
     ]),
     async loadData() {
       this.loading = true;
-      await this.LOAD_PLACES(this.getPageOptions());
+      await this.LOAD_ADDITIONALS(this.getPageOptions());
       this.loading = false;
     },
-    editPlace(item) {
-      this.editedPlace = Object.assign({}, item);
+    editAdditional(item) {
+      this.editedAdditional = Object.assign({}, item);
       this.dialog = true;
     },
-    deletePlace(item) {
-      confirm("Tem certeza de que deseja excluir este Espaço?") &&
-        this.REMOVE_PLACE(this.getPageOptions(item));
+    deleteAdditional(item) {
+      confirm("Tem certeza de que deseja excluir este Adicional?") &&
+        this.REMOVE_ADDITIONAL(this.getPageOptions(item));
     },
     close() {
       this.dialog = false;
-      this.editedPlace = Object.assign({}, this.defaultPlace);
+      this.editedAdditional = Object.assign({}, this.defaultAdditional);
       this.$refs.form.reset();
     },
-    savePlace() {
+    saveAdditional() {
       this.loading = true;
-      if (this.editedPlace.id == 0) {
-        this.CREATE_PLACE(this.getPageOptions(this.editedPlace))
+      if (this.editedAdditional.id == 0) {
+        this.CREATE_ADDITIONAL(this.getPageOptions(this.editedAdditional))
           .then(() => {
             this.close();
           })
@@ -185,8 +189,8 @@ export default {
             this.loading = false;
           });
       } else {
-        this.EDIT_PLACE({
-          place: this.editedPlace,
+        this.EDIT_ADDITIONAL({
+          additional: this.editedAdditional,
         })
           .then(() => {
             this.close();
@@ -196,7 +200,7 @@ export default {
           });
       }
     },
-    getPageOptions(place) {
+    getPageOptions(additional) {
       const { page, itemsPerPage, sortBy, sortDesc } = this.options;
       let pageOptions = {
         page: page - 1,
@@ -204,7 +208,7 @@ export default {
         sort: sortBy[0] || "name",
         sortDesc: sortDesc[0] || false,
       };
-      if (place) pageOptions["place"] = place;
+      if (additional) pageOptions["additional"] = additional;
       return pageOptions;
     },
     getCurrencyFormatted(value) {

@@ -32,8 +32,12 @@ public class Additional extends BaseEntityAudit implements Serializable {
 	private BigDecimal value;
 
 	@NotNull
-	@Column(name = "required", nullable = false)
-	private Boolean required = true;
+	@Column(name = "required_any_lease", nullable = false)
+	private Boolean requiredAnyLease = false;
+	
+	@NotNull
+	@Column(name = "required_main_lease", nullable = false)
+	private Boolean requiredMainLease = false;
 
 	@NotNull
 	@Column(name = "enabled", nullable = false)

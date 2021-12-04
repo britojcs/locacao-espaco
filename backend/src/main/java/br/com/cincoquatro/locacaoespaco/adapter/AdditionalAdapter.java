@@ -21,7 +21,8 @@ public class AdditionalAdapter extends BaseAdapter<Additional, AdditionalDto> {
 		additionalDto.setId(additional.getId());
 		additionalDto.setName(additional.getName());
 		additionalDto.setValue(additional.getValue());
-		additionalDto.setRequired(additional.getRequired());
+		additionalDto.setRequiredAnyLease(additional.getRequiredAnyLease());
+		additionalDto.setRequiredMainLease(additional.getRequiredMainLease());
 		additionalDto.setEnabled(additional.getEnabled());
 		additionalDto.setAdditionalPackage(additionalPackageAdapter.toDto(additional.getAdditionalPackage()));
 
@@ -39,7 +40,8 @@ public class AdditionalAdapter extends BaseAdapter<Additional, AdditionalDto> {
 		additional.setId(additionalDto.getId());
 		additional.setName(additionalDto.getName());
 		additional.setValue(additionalDto.getValue());
-		additional.setRequired(additionalDto.getRequired());
+		additional.setRequiredAnyLease(additionalDto.getRequiredAnyLease());
+		additional.setRequiredMainLease(additionalDto.getRequiredMainLease());
 		additional.setEnabled(additionalDto.getEnabled());
 		additional.setAdditionalPackage(additionalPackageAdapter.toModel(additionalDto.getAdditionalPackage()));
 

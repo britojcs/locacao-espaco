@@ -17,6 +17,7 @@ import { contacts } from '@/store/modules/contacts';
 import { customers } from '@/store/modules/customers';
 import { contracts } from '@/store/modules/contracts';
 import { places } from '@/store/modules/places';
+import { additionals } from '@/store/modules/additionals';
 
 const ls = new SecureLS({ isCompression: false });
 
@@ -36,6 +37,7 @@ const store = new Vuex.Store({
     customers,
     contracts,
     places,
+    additionals,
   },
   plugins: [
     createPersistedState({

@@ -11,10 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.cincoquatro.locacaoespaco.dto.AdditionalRequiredTypeDto;
 import br.com.cincoquatro.locacaoespaco.dto.ContactTypeDto;
 import br.com.cincoquatro.locacaoespaco.dto.LeaseTypeDto;
 import br.com.cincoquatro.locacaoespaco.dto.RoleDto;
 import br.com.cincoquatro.locacaoespaco.dto.StateDto;
+import br.com.cincoquatro.locacaoespaco.model.enums.AdditionalRequiredType;
 import br.com.cincoquatro.locacaoespaco.model.enums.ContactType;
 import br.com.cincoquatro.locacaoespaco.model.enums.LeaseType;
 import br.com.cincoquatro.locacaoespaco.model.enums.Role;
@@ -62,6 +64,19 @@ public class EnumsController {
 		});
 
 		return ResponseEntity.ok().body(leaseTypesDto);
+	}
+
+	@ResponseBody
+	@GetMapping("/additional-required-types")
+	public ResponseEntity<?> additionalRequiredTypes() {
+		AdditionalRequiredType[] additionalRequiredTypes = AdditionalRequiredType.values();
+		List<AdditionalRequiredTypeDto> additionalRequiredTypesDto = new ArrayList<>();
+
+		Arrays.asList(additionalRequiredTypes).forEach(additionalRequiredType -> {
+			additionalRequiredTypesDto.add(new AdditionalRequiredTypeDto(additionalRequiredType.name(), additionalRequiredType.getDescription()));
+		});
+
+		return ResponseEntity.ok().body(additionalRequiredTypesDto);
 	}
 
 	@ResponseBody

@@ -1,5 +1,5 @@
 <template>
-  <v-form class="mt-1" ref="placeform">
+  <v-form class="mt-1" ref="additionalform">
     <v-container>
       <v-row>
         <v-col cols="12" md="3" class="py-0 ma-0 my-1">
@@ -11,24 +11,15 @@
             type="checkbox"
           ></v-checkbox>
         </v-col>
-        <v-col cols="12" md="9" class="py-0 ma-0 my-1">
-          <v-text-field
-            v-model="model.name"
-            label="Nome"
-            class="ma-0 pa-0 form-label"
-            dense
-            required
-            counter="80"
-            :rules="[
-              required('Nome'),
-              minLength('Nome', 2),
-              maxLength('Nome', 80),
-            ]"
-          />
-        </v-col>
-      </v-row>
-      <v-row>
         <v-col cols="12" md="3" class="py-0 ma-0 my-1">
+          <v-checkbox
+            class="ma-0 pa-0 form-label"
+            v-model="model.required"
+            label="Obrigatório"
+            type="checkbox"
+          ></v-checkbox>
+        </v-col>
+        <v-col cols="12" md="6" class="py-0 ma-0 my-1">
           <CurrencyField
             v-model="model.value"
             :valueWhenIsEmpty="0"
@@ -39,16 +30,21 @@
             :rules="[required('Valor')]"
           />
         </v-col>
-        <v-col cols="12" md="9" class="py-0 ma-0 my-0">
-          <v-select
-            v-model="model.leaseType"
-            :items="leaseTypes"
-            :item-text="'description'"
+      </v-row>
+      <v-row>
+        <v-col cols="12" class="py-0 ma-0 my-1">
+          <v-text-field
+            v-model="model.name"
+            label="Descrição"
             class="ma-0 pa-0 form-label"
-            label="Tipo de locação"
-            return-object
+            dense
             required
-            :rules="[required('Tipo de locação')]"
+            counter="80"
+            :rules="[
+              required('Descrição'),
+              minLength('Descrição', 2),
+              maxLength('Descrição', 200),
+            ]"
           />
         </v-col>
       </v-row>
@@ -68,7 +64,7 @@
           :loading="loading"
           @click="
             () => {
-              if (!this.$refs.placeform.validate()) return;
+              if (!this.$refs.additionalform.validate()) return;
               onSubmitClick();
             }
           "
@@ -82,13 +78,12 @@
 <script>
 import { mapState } from "vuex";
 import validations from "@/helpers/validations";
-import { LOAD_LEASE_TYPES } from "@/store/_actiontypes";
 import CurrencyField from "../../components/textfield/CurrencyField.vue";
 
 export default {
   components: { CurrencyField },
   props: {
-    place: {
+    additional: {
       type: Object,
     },
     showCloseButton: {
@@ -110,25 +105,22 @@ export default {
       ...validations,
     };
   },
-  mounted() {
-    this.$store.dispatch(`leaseTypes/${LOAD_LEASE_TYPES}`);
-  },
   computed: {
     ...mapState({
       leaseTypes: (state) => state.leaseTypes.leaseTypes,
     }),
     model: {
       get() {
-        return this.place;
+        return this.additional;
       },
-      set(place) {
-        this.$emit("input", place);
+      set(additional) {
+        this.$emit("input", additional);
       },
     },
   },
   methods: {
     reset() {
-      this.$refs.placeform.reset();
+      this.$refs.additionalform.reset();
     },
   },
 };

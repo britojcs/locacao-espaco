@@ -25,7 +25,10 @@ public class AdditionalDto {
 	private BigDecimal value;
 
 	@NotNull
-	private Boolean required;
+	private Boolean requiredAnyLease;
+	
+	@NotNull
+	private Boolean requiredMainLease;
 
 	@NotNull
 	private Boolean enabled;
