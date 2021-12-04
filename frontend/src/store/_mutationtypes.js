@@ -1,3 +1,9 @@
+// ALERT
+export const CREATE_ALERT = 'CREATE_ALERT';
+
+// LOADING
+export const UPDATE_LOADING = 'UPDATE_LOADING';
+
 // LOGIN
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
@@ -7,6 +13,7 @@ export const LOGOUT_USER = 'LOGOUT_USER';
 export const SET_ROLES = 'SET_ROLES';
 export const SET_STATES = 'SET_STATES';
 export const SET_CONTACT_TYPES = 'SET_CONTACT_TYPES';
+export const SET_LEASE_TYPES = 'SET_LEASE_TYPES';
 
 // USER
 export const UPDATE_USER_DETAILS = 'UPDATE_USER_DETAILS';
@@ -38,8 +45,8 @@ export const UPDATE_CONTRACT = 'UPDATE_CONTRACT';
 export const DELETE_CONTRACT = 'DELETE_CONTRACT';
 export const SET_CONTRACTS = 'SET_CONTRACTS';
 
-// ALERT
-export const CREATE_ALERT = 'CREATE_ALERT';
-
-// LOADING
-export const UPDATE_LOADING = 'UPDATE_LOADING';
+// PLACES
+export const ADD_PLACE = 'ADD_PLACE';
+export const UPDATE_PLACE = 'UPDATE_PLACE';
+export const DELETE_PLACE = 'DELETE_PLACE';
+export const SET_PLACES = 'SET_PLACES';

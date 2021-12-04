@@ -3,32 +3,28 @@ package br.com.cincoquatro.locacaoespaco.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import br.com.cincoquatro.locacaoespaco.model.enums.LeaseType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name = "places")
-public class Place extends BaseEntityAudit implements Serializable {
+@Table(name = "additionals")
+public class Additional extends BaseEntityAudit implements Serializable {
 
-	private static final long serialVersionUID = -5789203922692449051L;
-
-	@Enumerated(EnumType.STRING)
-	@Column(name = "lease_type", length = 30)
-	private LeaseType leaseType;
+	private static final long serialVersionUID = 1100390842699323449L;
 
 	@NotBlank
-	@Column(name = "name", nullable = false, length = 80)
+	@Column(name = "name", nullable = false, length = 200)
 	private String name;
 
 	@NotNull
@@ -36,7 +32,14 @@ public class Place extends BaseEntityAudit implements Serializable {
 	private BigDecimal value;
 
 	@NotNull
+	@Column(name = "required", nullable = false)
+	private Boolean required = true;
+
+	@NotNull
 	@Column(name = "enabled", nullable = false)
 	private Boolean enabled = true;
+
+	@OneToOne(mappedBy = "additional", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+	private AdditionalPackage additionalPackage;
 
 }

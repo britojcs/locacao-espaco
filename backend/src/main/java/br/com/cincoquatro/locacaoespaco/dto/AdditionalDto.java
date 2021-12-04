@@ -13,21 +13,23 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class PlaceDto {
+public class AdditionalDto {
 
 	private Long id;
 
-	@NotNull(message = "Informe o tipo de locação")
-	private LeaseTypeDto leaseType;
-
 	@NotEmpty
-	@Size(min = 2, max = 80, message = "O nome deve ter entre 2 e 80 caracteres")
+	@Size(min = 2, max = 200, message = "O nome deve ter entre 2 e 200 caracteres")
 	private String name;
 
 	@NotNull
 	private BigDecimal value;
 
 	@NotNull
+	private Boolean required;
+
+	@NotNull
 	private Boolean enabled;
+
+	private AdditionalPackageDto additionalPackage;
 
 }

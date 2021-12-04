@@ -178,7 +178,6 @@ export default {
       if (cep.length == 8) {
         fetch(`https://viacep.com.br/ws/${cep}/json/`).then((response) => {
           response.json().then((data) => {
-            console.log(data);
             this.model.address = data.logradouro;
             this.model.addressComplement = data.complemento;
             this.model.district = data.bairro;

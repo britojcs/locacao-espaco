@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.cincoquatro.locacaoespaco.dto.ContactTypeDto;
+import br.com.cincoquatro.locacaoespaco.dto.LeaseTypeDto;
 import br.com.cincoquatro.locacaoespaco.dto.RoleDto;
 import br.com.cincoquatro.locacaoespaco.dto.StateDto;
 import br.com.cincoquatro.locacaoespaco.model.enums.ContactType;
+import br.com.cincoquatro.locacaoespaco.model.enums.LeaseType;
 import br.com.cincoquatro.locacaoespaco.model.enums.Role;
 import br.com.cincoquatro.locacaoespaco.model.enums.State;
 
@@ -42,13 +44,26 @@ public class EnumsController {
 		ContactType[] contactTypes = ContactType.values();
 		List<ContactTypeDto> contactTypesDto = new ArrayList<>();
 
-		Arrays.asList(contactTypes).forEach(role -> {
-			contactTypesDto.add(new ContactTypeDto(role.name(), role.getDescription()));
+		Arrays.asList(contactTypes).forEach(contactType -> {
+			contactTypesDto.add(new ContactTypeDto(contactType.name(), contactType.getDescription()));
 		});
 
 		return ResponseEntity.ok().body(contactTypesDto);
 	}
-	
+
+	@ResponseBody
+	@GetMapping("/lease-types")
+	public ResponseEntity<?> leaseTypes() {
+		LeaseType[] leaseTypes = LeaseType.values();
+		List<LeaseTypeDto> leaseTypesDto = new ArrayList<>();
+
+		Arrays.asList(leaseTypes).forEach(leaseType -> {
+			leaseTypesDto.add(new LeaseTypeDto(leaseType.name(), leaseType.getDescription()));
+		});
+
+		return ResponseEntity.ok().body(leaseTypesDto);
+	}
+
 	@ResponseBody
 	@GetMapping("/states")
 	public ResponseEntity<?> states() {

@@ -126,9 +126,9 @@ export default {
       navItems: [
         { icon: "mdi-view-dashboard", text: "Dashboard", route: "/dashboard" },
         { icon: "mdi-account-multiple", text: "Clientes", route: "/clientes" },
-        { icon: "mdi-home-group", text: "Espaços", route: "/stats" },
-        { icon: "mdi-home-account", text: "Locações", route: "/stats" },
+        { icon: "mdi-home-group", text: "Espaços", route: "/espacos" },
         { icon: "mdi-plus-box", text: "Adicionais", route: "/stats" },
+        { icon: "mdi-home-account", text: "Locações", route: "/stats" },
         {
           icon: "mdi-card-account-details",
           text: "Usuários",

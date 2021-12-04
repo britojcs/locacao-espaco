@@ -1,3 +1,9 @@
+// ALERT
+export const ADD_ALERT = 'ADD_ALERT';
+
+// LOADING
+export const TOGGLE_LOADING = 'TOGGLE_LOADING';
+
 // LOGIN
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
@@ -7,6 +13,7 @@ export const REFRESHTOKEN = 'REFRESHTOKEN';
 export const LOAD_ROLES = 'LOAD_ROLES';
 export const LOAD_STATES = 'LOAD_STATES';
 export const LOAD_CONTACT_TYPES = 'LOAD_CONTACT_TYPES';
+export const LOAD_LEASE_TYPES = 'LOAD_LEASE_TYPES';
 
 // USER
 export const EDIT_USER_DETAILS = 'EDIT_USER_DETAILS';
@@ -39,8 +46,8 @@ export const EDIT_CONTRACT = 'EDIT_CONTRACT';
 export const REMOVE_CONTRACT = 'REMOVE_CONTRACT';
 export const LOAD_CONTRACTS = 'LOAD_CONTRACTS';
 
-// ALERT
-export const ADD_ALERT = 'ADD_ALERT';
-
-// LOADING
-export const TOGGLE_LOADING = 'TOGGLE_LOADING';
+// PLACES
+export const CREATE_PLACE = 'CREATE_PLACE';
+export const EDIT_PLACE = 'EDIT_PLACE';
+export const REMOVE_PLACE = 'REMOVE_PLACE';
+export const LOAD_PLACES = 'LOAD_PLACES';

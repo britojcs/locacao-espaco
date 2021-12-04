@@ -2,16 +2,21 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import createPersistedState from 'vuex-persistedstate';
 import SecureLS from 'secure-ls';
+
 import { alert } from '@/store/modules/alert';
 import { loader } from '@/store/modules/loader';
-import { account } from '@/store/modules/account';
-import { users } from '@/store/modules/users';
+
 import { roles } from '@/store/modules/roles';
 import { states } from '@/store/modules/states';
 import { contactTypes } from '@/store/modules/contact-types';
+import { leaseTypes } from '@/store/modules/lease-types';
+
+import { account } from '@/store/modules/account';
+import { users } from '@/store/modules/users';
 import { contacts } from '@/store/modules/contacts';
 import { customers } from '@/store/modules/customers';
 import { contracts } from '@/store/modules/contracts';
+import { places } from '@/store/modules/places';
 
 const ls = new SecureLS({ isCompression: false });
 
@@ -26,9 +31,11 @@ const store = new Vuex.Store({
     roles,
     states,
     contactTypes,
+    leaseTypes,
     contacts,
     customers,
     contracts,
+    places,
   },
   plugins: [
     createPersistedState({

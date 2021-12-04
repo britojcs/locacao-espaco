@@ -84,8 +84,8 @@ DROP TABLE IF EXISTS places CASCADE;
 CREATE TABLE places (
 	id BIGINT AUTO_INCREMENT NOT NULL,
 	name VARCHAR(80) NOT NULL,
-	value DECIMAL(6,2) NOT NULL,
-	place_type VARCHAR(30) NOT NULL,
+	value DECIMAL(11,2) NOT NULL,
+	lease_type VARCHAR(30) NOT NULL,
 	enabled BOOLEAN NOT NULL DEFAULT TRUE,
 	created_by VARCHAR(25) NOT NULL,
     updated_by VARCHAR(25),
@@ -99,7 +99,7 @@ DROP TABLE IF EXISTS additionals CASCADE;
 CREATE TABLE additionals (
 	id BIGINT AUTO_INCREMENT NOT NULL,
 	name VARCHAR(200) NOT NULL,
-	value DECIMAL(6,2) NOT NULL,
+	value DECIMAL(11,2) NOT NULL,
 	required BOOLEAN NOT NULL DEFAULT FALSE,
 	enabled BOOLEAN NOT NULL DEFAULT TRUE,
 	created_by VARCHAR(25) NOT NULL,
@@ -111,10 +111,9 @@ CREATE TABLE additionals (
 
 DROP TABLE IF EXISTS additional_packages CASCADE;
 CREATE TABLE additional_packages (
-	additional_package_id BIGINT AUTO_INCREMENT NOT NULL,
 	additional_id BIGINT NOT NULL,
 	description TEXT NOT NULL,
-	CONSTRAINT additional_packages_pk PRIMARY KEY (additional_package_id),
+	CONSTRAINT additional_packages_pk PRIMARY KEY (additional_id),
 	CONSTRAINT additional_packages_fk1 FOREIGN KEY (additional_id)
         REFERENCES additionals(id) ON DELETE CASCADE ON UPDATE NO ACTION
 );

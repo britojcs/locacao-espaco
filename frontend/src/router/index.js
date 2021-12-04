@@ -10,6 +10,7 @@ import UserList from '@/views/user/UserList.vue';
 import CustomerList from '@/views/customer/CustomerList.vue';
 import ContactList from '@/views/contact/ContactList.vue';
 import ContractList from '@/views/contract/ContractList.vue';
+import PlaceList from '@/views/place/PlaceList.vue';
 
 Vue.use(Router);
 
@@ -26,6 +27,7 @@ const router = new Router({
         { path: '/clientes', component: CustomerList },
         { path: '/:owner/:id/contatos', component: ContactList },
         { path: '/contratos', component: ContractList },
+        { path: '/espacos', component: PlaceList },
         // { path: '/', component: Dashboard },
       ]
     },
