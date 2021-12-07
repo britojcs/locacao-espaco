@@ -80,10 +80,12 @@
               ></v-chip>
             </template>
             <template v-slot:[`item.action`]="{ item }">
-              <v-icon small class="mr-2" @click="editUser(item)">edit</v-icon>
-              <v-icon v-if="item.id != 1" small @click="deleteUser(item)"
-                >delete</v-icon
-              >
+              <div class="d-flex justify-end">
+                <v-icon small class="mr-2" @click="editUser(item)">edit</v-icon>
+                <v-icon v-if="item.id != 1" small @click="deleteUser(item)"
+                  >delete</v-icon
+                >
+              </div>
             </template>
           </v-data-table>
         </v-flex>

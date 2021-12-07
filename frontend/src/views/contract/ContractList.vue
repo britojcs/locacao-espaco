@@ -68,10 +68,12 @@
               ></v-chip>
             </template>
             <template v-slot:[`item.action`]="{ item }">
-              <v-icon small class="mr-2" @click="editContract(item)"
-                >edit</v-icon
-              >
-              <v-icon small @click="deleteContract(item)">delete</v-icon>
+              <div class="d-flex justify-end">
+                <v-icon small class="mr-2" @click="editContract(item)"
+                  >edit</v-icon
+                >
+                <v-icon small @click="deleteContract(item)">delete</v-icon>
+              </div>
             </template>
           </v-data-table>
         </v-flex>

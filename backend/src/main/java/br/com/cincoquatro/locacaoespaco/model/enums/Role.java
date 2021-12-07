@@ -12,7 +12,7 @@ public enum Role {
     ROLE_CONTRACT("Contratos"),
     ROLE_PLACE("Espaços"),
     ROLE_ADDITIONAL("Adicionais"),
-    ROLE_LEASES("Locações"),
+    ROLE_LEASE("Locações"),
     ROLE_MONITOR("Monitor");
 	// @formatter:on
 

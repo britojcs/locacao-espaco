@@ -10,6 +10,7 @@ import { roles } from '@/store/modules/roles';
 import { states } from '@/store/modules/states';
 import { contactTypes } from '@/store/modules/contact-types';
 import { leaseTypes } from '@/store/modules/lease-types';
+import { additionalRequiredTypes } from '@/store/modules/additional-required-types';
 
 import { account } from '@/store/modules/account';
 import { users } from '@/store/modules/users';
@@ -33,6 +34,7 @@ const store = new Vuex.Store({
     states,
     contactTypes,
     leaseTypes,
+    additionalRequiredTypes,
     contacts,
     customers,
     contracts,

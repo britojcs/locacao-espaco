@@ -30,6 +30,6 @@ public class AdditionalDto {
 	@NotNull(message = "Informe a obrigatoriedade")
 	private AdditionalRequiredTypeDto requiredType;
 
-	private AdditionalPackageDto additionalPackage;
+	private String additionalPackage;
 
 }

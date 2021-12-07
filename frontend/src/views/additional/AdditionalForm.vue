@@ -11,18 +11,24 @@
             type="checkbox"
           ></v-checkbox>
         </v-col>
-        <v-col cols="12" md="3" class="py-0 ma-0 my-1">
-          <v-checkbox
+        <v-col cols="12" md="9" class="py-0 ma-0 my-0">
+          <v-select
+            v-model="model.requiredType"
+            :items="requiredTypes"
+            :item-text="'description'"
             class="ma-0 pa-0 form-label"
-            v-model="model.required"
-            label="Obrigatório"
-            type="checkbox"
-          ></v-checkbox>
+            label="Obrigatoriedade"
+            return-object
+            required
+            :rules="[required('Obrigatoriedade')]"
+          />
         </v-col>
-        <v-col cols="12" md="6" class="py-0 ma-0 my-1">
+      </v-row>
+      <v-row>
+        <v-col cols="12" md="3" class="py-0 ma-0 my-0">
           <CurrencyField
             v-model="model.value"
-            :valueWhenIsEmpty="0"
+            valueWhenIsEmpty="0"
             label="Valor"
             class="ma-0 pa-0 form-label"
             dense
@@ -30,9 +36,7 @@
             :rules="[required('Valor')]"
           />
         </v-col>
-      </v-row>
-      <v-row>
-        <v-col cols="12" class="py-0 ma-0 my-1">
+        <v-col cols="12" md="9" class="py-0 ma-0 my-1">
           <v-text-field
             v-model="model.name"
             label="Descrição"
@@ -45,6 +49,19 @@
               minLength('Descrição', 2),
               maxLength('Descrição', 200),
             ]"
+          />
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col cols="12" class="py-0 ma-0 my-1">
+          <v-textarea
+            v-model="model.additionalPackage"
+            label="Adicional Múltiplo"
+            :auto-grow="true"
+            class="ma-0 pa-0 form-label my-1"
+            rows="4"
+            clearable
+            dense
           />
         </v-col>
       </v-row>
@@ -78,6 +95,7 @@
 <script>
 import { mapState } from "vuex";
 import validations from "@/helpers/validations";
+import { LOAD_ADDITIONAL_REQUIRED_TYPES } from "@/store/_actiontypes";
 import CurrencyField from "../../components/textfield/CurrencyField.vue";
 
 export default {
@@ -105,9 +123,15 @@ export default {
       ...validations,
     };
   },
+  mounted() {
+    this.$store.dispatch(
+      `additionalRequiredTypes/${LOAD_ADDITIONAL_REQUIRED_TYPES}`
+    );
+  },
   computed: {
     ...mapState({
-      leaseTypes: (state) => state.leaseTypes.leaseTypes,
+      requiredTypes: (state) =>
+        state.additionalRequiredTypes.additionalRequiredTypes,
     }),
     model: {
       get() {

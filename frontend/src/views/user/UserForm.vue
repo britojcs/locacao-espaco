@@ -22,6 +22,7 @@
         <v-col cols="12" md="8" class="py-0 ma-0 my-1">
           <v-text-field
             v-model="model.username"
+            :disabled="model.id == 1"
             label="Usuário/login"
             class="ma-0 pa-0 form-label"
             dense
@@ -73,7 +74,22 @@
             label="Permissões"
             required
             :rules="[required('Permissão')]"
-          ></v-select>
+            :disabled="model.id == 1"
+          >
+            <template v-slot:prepend-item>
+              <v-list-item ripple @click="toggleSelectAllRoles">
+                <v-list-item-action>
+                  <v-icon :color="model.roles.length > 0 ? 'darken-4' : ''">
+                    {{ iconSelectRole }}
+                  </v-icon>
+                </v-list-item-action>
+                <v-list-item-content>
+                  <v-list-item-title> Admin </v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+              <v-divider class="mt-2"></v-divider>
+            </template>
+          </v-select>
         </v-col>
       </v-row>
       <v-row class="justify-end">
@@ -137,7 +153,8 @@ export default {
   },
   computed: {
     ...mapState({
-      roles: (state) => state.roles.roles,
+      roles: (state) =>
+        state.roles.roles.filter((role) => role.name != "ROLE_ADMIN"),
     }),
     model: {
       get() {
@@ -147,10 +164,27 @@ export default {
         this.$emit("input", user);
       },
     },
+    likesAllRoles() {
+      return this.user.roles.length === this.roles.length;
+    },
+    likesSomeRole() {
+      return this.user.roles.length > 0 && !this.likesAllRoles;
+    },
+    iconSelectRole() {
+      if (this.likesAllRoles) return "mdi-close-box";
+      if (this.likesSomeRole) return "mdi-minus-box";
+      return "mdi-checkbox-blank-outline";
+    },
   },
   methods: {
     reset() {
       this.$refs.userform.reset();
+    },
+    toggleSelectAllRoles() {
+      this.$nextTick(() => {
+        if (this.likesAllRoles) this.model.roles = [];
+        else this.model.roles = this.roles.slice();
+      });
     },
   },
 };

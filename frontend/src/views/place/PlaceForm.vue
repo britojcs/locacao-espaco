@@ -31,7 +31,7 @@
         <v-col cols="12" md="3" class="py-0 ma-0 my-1">
           <CurrencyField
             v-model="model.value"
-            :valueWhenIsEmpty="0"
+            valueWhenIsEmpty="0"
             label="Valor"
             class="ma-0 pa-0 form-label"
             dense

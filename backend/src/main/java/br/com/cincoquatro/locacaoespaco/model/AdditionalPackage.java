@@ -5,7 +5,6 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -26,7 +25,6 @@ public class AdditionalPackage implements Serializable {
 
 	@MapsId
 	@OneToOne
-	@JoinColumn(name = "additional_id")
 	private Additional additional;
 
 	@NotBlank

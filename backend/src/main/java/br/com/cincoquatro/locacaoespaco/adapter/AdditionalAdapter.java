@@ -1,17 +1,16 @@
 package br.com.cincoquatro.locacaoespaco.adapter;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.Optional;
+
 import org.springframework.stereotype.Component;
 
 import br.com.cincoquatro.locacaoespaco.dto.AdditionalDto;
 import br.com.cincoquatro.locacaoespaco.dto.AdditionalRequiredTypeDto;
 import br.com.cincoquatro.locacaoespaco.model.Additional;
+import br.com.cincoquatro.locacaoespaco.model.AdditionalPackage;
 
 @Component
 public class AdditionalAdapter extends BaseAdapter<Additional, AdditionalDto> {
-
-	@Autowired
-	private AdditionalPackageAdapter additionalPackageAdapter;
 
 	@Override
 	public AdditionalDto toDto(Additional additional) {
@@ -24,7 +23,10 @@ public class AdditionalAdapter extends BaseAdapter<Additional, AdditionalDto> {
 		additionalDto.setValue(additional.getValue());
 		additionalDto.setEnabled(additional.getEnabled());
 		additionalDto.setRequiredType(new AdditionalRequiredTypeDto().toDto(additional.getRequiredType()));
-		additionalDto.setAdditionalPackage(additionalPackageAdapter.toDto(additional.getAdditionalPackage()));
+
+		Optional.ofNullable(additional.getAdditionalPackage()).ifPresent(additionalPackage -> {
+			additionalDto.setAdditionalPackage(additionalPackage.getDescription());
+		});
 
 		return additionalDto;
 	}
@@ -42,7 +44,16 @@ public class AdditionalAdapter extends BaseAdapter<Additional, AdditionalDto> {
 		additional.setValue(additionalDto.getValue());
 		additional.setEnabled(additionalDto.getEnabled());
 		additional.setRequiredType(new AdditionalRequiredTypeDto().toModel(additionalDto.getRequiredType().name));
-		additional.setAdditionalPackage(additionalPackageAdapter.toModel(additionalDto.getAdditionalPackage()));
+
+		String additionalPackageDescription = additionalDto.getAdditionalPackage();
+		if (additionalPackageDescription != null && additionalPackageDescription.trim().length() > 0) {
+			AdditionalPackage additionalPackage = new AdditionalPackage();
+			additionalPackage.setId(additional.getId());
+			additionalPackage.setAdditional(additional);
+			additionalPackage.setDescription(additionalPackageDescription);
+			additional.setAdditionalPackage(additionalPackage);
+		} else
+			additional.setAdditionalPackage(null);
 
 		return additional;
 	}

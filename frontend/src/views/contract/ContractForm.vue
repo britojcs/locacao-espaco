@@ -79,7 +79,7 @@
               rows="2"
               clearable
               dense
-            ></v-textarea>
+            />
           </v-col>
         </v-row>
         <v-row>

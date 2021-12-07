@@ -8,8 +8,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -42,8 +42,7 @@ public class Additional extends BaseEntityAudit implements Serializable {
 	@Column(name = "enabled", nullable = false)
 	private Boolean enabled = true;
 
-	@PrimaryKeyJoinColumn
-	@OneToOne(mappedBy = "additional", cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "additional", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private AdditionalPackage additionalPackage;
 
 }

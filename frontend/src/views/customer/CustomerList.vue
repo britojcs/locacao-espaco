@@ -68,13 +68,15 @@
               ></v-chip>
             </template>
             <template v-slot:[`item.action`]="{ item }">
-              <v-icon small class="mr-2" @click="showContacts(item)"
-                >mdi-account-box</v-icon
-              >
-              <v-icon small class="mr-2" @click="editCustomer(item)"
-                >edit</v-icon
-              >
-              <v-icon small @click="deleteCustomer(item)">delete</v-icon>
+              <div class="d-flex justify-end">
+                <v-icon small class="mr-2" @click="showContacts(item)"
+                  >mdi-account-box</v-icon
+                >
+                <v-icon small class="mr-2" @click="editCustomer(item)"
+                  >edit</v-icon
+                >
+                <v-icon small @click="deleteCustomer(item)">delete</v-icon>
+              </div>
             </template>
           </v-data-table>
         </v-flex>

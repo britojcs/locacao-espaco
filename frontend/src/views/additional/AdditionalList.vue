@@ -56,6 +56,34 @@
                     </v-card-text>
                   </v-card>
                 </v-dialog>
+                <v-dialog v-model="dialogAdditionalPackage" max-width="400px">
+                  <v-card>
+                    <v-card-title>
+                      <span class="text-h5">{{ editedAdditional.name }}</span>
+                    </v-card-title>
+                    <v-card-text v-if="editedAdditional.additionalPackage">
+                      <div
+                        v-for="(
+                          text, index
+                        ) in editedAdditional.additionalPackage.split('\n')"
+                        :key="index"
+                      >
+                        {{ text }}
+                      </div>
+                    </v-card-text>
+                    <v-card-actions>
+                      <v-spacer></v-spacer>
+                      <v-btn
+                        outlined
+                        small
+                        class="primary--text font-weight-bold"
+                        @click="dialogAdditionalPackage = false"
+                      >
+                        Fechar
+                      </v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </v-dialog>
               </div>
             </template>
             <template v-slot:[`item.value`]="{ item }">
@@ -71,10 +99,19 @@
               ></v-chip>
             </template>
             <template v-slot:[`item.action`]="{ item }">
-              <v-icon small class="mr-2" @click="editAdditional(item)"
-                >edit</v-icon
-              >
-              <v-icon small @click="deleteAdditional(item)">delete</v-icon>
+              <div class="d-flex justify-end">
+                <v-icon
+                  v-if="item.additionalPackage"
+                  small
+                  class="mr-2"
+                  @click="editAdditional(item, true)"
+                  >mdi-text-box-plus-outline</v-icon
+                >
+                <v-icon small class="mr-2" @click="editAdditional(item, false)"
+                  >edit</v-icon
+                >
+                <v-icon small @click="deleteAdditional(item)">delete</v-icon>
+              </div>
             </template>
           </v-data-table>
         </v-flex>
@@ -98,6 +135,7 @@ export default {
   data: () => ({
     loading: false,
     dialog: false,
+    dialogAdditionalPackage: false,
     page: 1,
     itemsPerPage: 10,
     options: {},
@@ -105,28 +143,24 @@ export default {
       { text: "Código", value: "id", width: 90 /*, align: " d-none"*/ },
       { text: "Descrição", value: "name" },
       { text: "Valor", value: "value", width: 140 },
-      { text: "Obrigatório", value: "required", width: 120 },
+      { text: "Obrigatoriedade", value: "requiredType.description" },
       { text: "Ativo", value: "enabled", width: 80 },
       { text: "Ações", value: "action", sortable: false, width: 100 },
     ],
     editedAdditional: {
       id: 0,
       name: "",
-      additionalPackage: {
-        description: "",
-      },
+      requiredType: { name: "NOT_REQUIRED", description: "Não é obrigatório" },
+      additionalPackage: "",
       value: 0,
-      required: false,
       enabled: true,
     },
     defaultAdditional: {
       id: 0,
       name: "",
-      additionalPackage: {
-        description: "",
-      },
+      requiredType: { name: "NOT_REQUIRED", description: "Não é obrigatório" },
+      additionalPackage: "",
       value: 0,
-      required: false,
       enabled: true,
     },
   }),
@@ -144,6 +178,9 @@ export default {
   },
   watch: {
     dialog(val) {
+      val || this.close();
+    },
+    dialogAdditionalPackage(val) {
       val || this.close();
     },
     options: {
@@ -165,9 +202,10 @@ export default {
       await this.LOAD_ADDITIONALS(this.getPageOptions());
       this.loading = false;
     },
-    editAdditional(item) {
+    editAdditional(item, showDialogAdditionalPackage) {
       this.editedAdditional = Object.assign({}, item);
-      this.dialog = true;
+      if (showDialogAdditionalPackage) this.dialogAdditionalPackage = true;
+      else this.dialog = true;
     },
     deleteAdditional(item) {
       confirm("Tem certeza de que deseja excluir este Adicional?") &&
@@ -175,8 +213,8 @@ export default {
     },
     close() {
       this.dialog = false;
+      this.dialogAdditionalPackage = false;
       this.editedAdditional = Object.assign({}, this.defaultAdditional);
-      this.$refs.form.reset();
     },
     saveAdditional() {
       this.loading = true;

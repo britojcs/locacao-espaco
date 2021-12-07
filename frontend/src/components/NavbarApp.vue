@@ -89,6 +89,7 @@
           :key="item.text"
           :to="item.route"
           :ripple="false"
+          :disabled="item.route == '/dashboard' || item.route == '/locacoes'"
         >
           <span>
             <v-icon small class="primary--text mr-1">{{ item.icon }}</v-icon>
@@ -124,11 +125,11 @@ export default {
     return {
       sidebar: false,
       navItems: [
-        { icon: "mdi-view-dashboard", text: "Dashboard", route: "/dashboard" },
+        { icon: "mdi-view-dashboard", text: "Painel", route: "/dashboard" },
         { icon: "mdi-account-multiple", text: "Clientes", route: "/clientes" },
         { icon: "mdi-home-group", text: "Espaços", route: "/espacos" },
         { icon: "mdi-plus-box", text: "Adicionais", route: "/adicionais" },
-        { icon: "mdi-home-account", text: "Locações", route: "/stats" },
+        { icon: "mdi-home-account", text: "Locações", route: "/locacoes" },
         {
           icon: "mdi-card-account-details",
           text: "Usuários",
