@@ -17,10 +17,8 @@ public class UserProfileDto {
 	@NotEmpty
 	@Size(min = 2, max = 30, message = "O primeiro nome deve ter entre 2 e 30 caracteres")
 	@Pattern(regexp = Constants.REGEX.NAME, message = "Nome inválido!")
-	private String firstName;
+	private String firstname;
 
-	@Size(min = 2, max = 50, message = "O sobrenome deve ter entre 2 e 50 caracteres")
-	@Pattern(regexp = Constants.REGEX.NAME, message = "Sobrenome inválido!")
-	private String lastName;
+	private String lastname;
 
 }

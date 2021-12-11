@@ -80,11 +80,12 @@
               ></v-chip>
             </template>
             <template v-slot:[`item.action`]="{ item }">
-              <div class="d-flex justify-end">
+              <div
+                v-if="item.id != 1 && item.id != user.id"
+                class="d-flex justify-end"
+              >
                 <v-icon small class="mr-2" @click="editUser(item)">edit</v-icon>
-                <v-icon v-if="item.id != 1" small @click="deleteUser(item)"
-                  >delete</v-icon
-                >
+                <v-icon small @click="deleteUser(item)">delete</v-icon>
               </div>
             </template>
           </v-data-table>
@@ -143,6 +144,7 @@ export default {
   }),
   computed: {
     ...mapState({
+      user: (state) => state.account.user,
       items: (state) => state.users.users,
       totalElements: (state) => state.users.totalElements,
       totalPages: (state) => state.users.totalPages,
@@ -216,8 +218,7 @@ export default {
       return pageOptions;
     },
     getColorRole(role) {
-      if (role == "ROLE_ADMIN") return "red";
-      return "default";
+      return role == "ROLE_ADMIN" ? "red" : "default";
     },
     getColorEnabled(enabled) {
       return enabled ? "green" : "red";

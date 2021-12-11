@@ -84,7 +84,7 @@
                   </v-icon>
                 </v-list-item-action>
                 <v-list-item-content>
-                  <v-list-item-title> Admin </v-list-item-title>
+                  <v-list-item-title> Selecionar todos </v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
               <v-divider class="mt-2"></v-divider>
@@ -153,8 +153,7 @@ export default {
   },
   computed: {
     ...mapState({
-      roles: (state) =>
-        state.roles.roles.filter((role) => role.name != "ROLE_ADMIN"),
+      roles: (state) => state.roles.roles,
     }),
     model: {
       get() {

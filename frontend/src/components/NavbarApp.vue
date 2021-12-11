@@ -119,24 +119,69 @@ export default {
         state.account.user ? state.account.user.firstname : "",
       systemName: (state) =>
         state.account.user ? state.account.user.systemName : "",
+      navItems: (state) => {
+        let items = [
+          { icon: "mdi-view-dashboard", text: "Painel", route: "/dashboard" },
+        ];
+        const userRoles = state.account.user ? state.account.user.roles : [];
+        if (
+          userRoles.includes("ROLE_ADMIN") ||
+          userRoles.includes("ROLE_CUSTOMER")
+        )
+          items.push({
+            icon: "mdi-account-multiple",
+            text: "Clientes",
+            route: "/clientes",
+          });
+        if (
+          userRoles.includes("ROLE_ADMIN") ||
+          userRoles.includes("ROLE_PLACE")
+        )
+          items.push({
+            icon: "mdi-home-group",
+            text: "Espaços",
+            route: "/espacos",
+          });
+        if (
+          userRoles.includes("ROLE_ADMIN") ||
+          userRoles.includes("ROLE_ADDITIONAL")
+        )
+          items.push({
+            icon: "mdi-plus-box",
+            text: "Adicionais",
+            route: "/adicionais",
+          });
+        if (
+          userRoles.includes("ROLE_ADMIN") ||
+          userRoles.includes("ROLE_LEASE")
+        )
+          items.push({
+            icon: "mdi-home-account",
+            text: "Locações",
+            route: "/locacoes",
+          });
+        if (userRoles.includes("ROLE_ADMIN") || userRoles.includes("ROLE_USER"))
+          items.push({
+            icon: "mdi-card-account-details",
+            text: "Usuários",
+            route: "/usuarios",
+          });
+        if (
+          userRoles.includes("ROLE_ADMIN") ||
+          userRoles.includes("ROLE_CONTRACT")
+        )
+          items.push({
+            icon: "mdi-text-box",
+            text: "Contratos",
+            route: "/contratos",
+          });
+        return items;
+      },
     }),
   },
   data() {
     return {
       sidebar: false,
-      navItems: [
-        { icon: "mdi-view-dashboard", text: "Painel", route: "/dashboard" },
-        { icon: "mdi-account-multiple", text: "Clientes", route: "/clientes" },
-        { icon: "mdi-home-group", text: "Espaços", route: "/espacos" },
-        { icon: "mdi-plus-box", text: "Adicionais", route: "/adicionais" },
-        { icon: "mdi-home-account", text: "Locações", route: "/locacoes" },
-        {
-          icon: "mdi-card-account-details",
-          text: "Usuários",
-          route: "/usuarios",
-        },
-        { icon: "mdi-text-box", text: "Contratos", route: "/contratos" },
-      ],
       menuItems: [
         { icon: "perm_identity", text: "Perfil", route: "/perfil" },
         {

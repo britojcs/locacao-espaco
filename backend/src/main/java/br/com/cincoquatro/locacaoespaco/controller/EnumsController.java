@@ -2,6 +2,7 @@ package br.com.cincoquatro.locacaoespaco.controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -34,8 +35,11 @@ public class EnumsController {
 		List<RoleDto> rolesDto = new ArrayList<>();
 
 		Arrays.asList(roles).forEach(role -> {
-			rolesDto.add(new RoleDto(role.name(), role.getDescription()));
+			if (!Role.ROLE_ADMIN.name().equals(role.name()))
+				rolesDto.add(new RoleDto(role.name(), role.getDescription()));
 		});
+
+		Collections.sort(rolesDto, (RoleDto role1, RoleDto role2) -> role1.getName().compareTo(role2.getName()));
 
 		return ResponseEntity.ok().body(rolesDto);
 	}

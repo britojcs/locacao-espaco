@@ -1,7 +1,5 @@
 package br.com.cincoquatro.locacaoespaco.dto;
 
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -39,9 +37,6 @@ public class RoleDto extends BaseEnumDto<Role, RoleDto> {
 
 	@Override
 	public Set<Role> toModel(Set<RoleDto> rolesDto) {
-		if (!rolesDto.isEmpty() && rolesDto.size() == Role.values().length - 1)
-			return new HashSet<>(Arrays.asList(Role.ROLE_ADMIN));
-
 		return rolesDto.stream().map(roleDto -> toModel(roleDto.getName())).collect(Collectors.toSet());
 	}
 

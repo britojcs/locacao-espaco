@@ -4,14 +4,14 @@ CREATE TABLE users (
     id BIGINT AUTO_INCREMENT NOT NULL,
     username VARCHAR(25) UNIQUE NOT NULL,
     password VARCHAR(200) NOT NULL,
-    firstname VARCHAR(30),
-    lastname VARCHAR(50),
+    firstname VARCHAR(30) NULL,
+    lastname VARCHAR(50) NULL,
     enabled BOOLEAN NOT NULL DEFAULT TRUE,
-    last_login_at TIMESTAMP,
+    last_login_at TIMESTAMP NULL,
     created_by VARCHAR(25) NOT NULL,
-    updated_by VARCHAR(25),
+    updated_by VARCHAR(25) NULL,
     created_at TIMESTAMP NOT NULL,
-    updated_at TIMESTAMP,
+    updated_at TIMESTAMP NULL,
     CONSTRAINT users_pk PRIMARY KEY (id)
 );
 
@@ -30,12 +30,12 @@ CREATE TABLE contracts (
     id BIGINT AUTO_INCREMENT NOT NULL,
     name VARCHAR(50) UNIQUE NOT NULL,
     content TEXT NOT NULL,
-    description VARCHAR(250),
+    description VARCHAR(250) NULL,
     enabled BOOLEAN NOT NULL DEFAULT TRUE,
     created_by VARCHAR(25) NOT NULL,
-    updated_by VARCHAR(25),
+    updated_by VARCHAR(25) NULL,
     created_at TIMESTAMP NOT NULL,
-    updated_at TIMESTAMP,
+    updated_at TIMESTAMP NULL,
     CONSTRAINT contracts_pk PRIMARY KEY (id)
 );
 
@@ -45,7 +45,7 @@ CREATE TABLE contacts (
 	id BIGINT AUTO_INCREMENT NOT NULL,
 	contact_type VARCHAR(30) NOT NULL,
 	name VARCHAR(80) NOT NULL,
-	description VARCHAR(200),
+	description VARCHAR(200) NULL,
 	CONSTRAINT contacts_pk PRIMARY KEY (id)
 );
 
@@ -54,17 +54,17 @@ DROP TABLE IF EXISTS customers CASCADE;
 CREATE TABLE customers (
     id BIGINT AUTO_INCREMENT NOT NULL,
     fullname VARCHAR(80) NOT NULL,
-    cpf_cnpj VARCHAR(20),
-    cep VARCHAR(9),
-    address VARCHAR(50),
-    address_complement VARCHAR(100),
-    district VARCHAR(50),
-    city VARCHAR(50),
-    state VARCHAR(2),
+    cpf_cnpj VARCHAR(20) NULL,
+    cep VARCHAR(9) NULL,
+    address VARCHAR(50) NULL,
+    address_complement VARCHAR(100) NULL,
+    district VARCHAR(50) NULL,
+    city VARCHAR(50) NULL,
+    state VARCHAR(2) NULL,
     created_by VARCHAR(25) NOT NULL,
-    updated_by VARCHAR(25),
+    updated_by VARCHAR(25) NULL,
     created_at TIMESTAMP NOT NULL,
-    updated_at TIMESTAMP,
+    updated_at TIMESTAMP NULL,
     CONSTRAINT customers_pk PRIMARY KEY (id)
 );
 
@@ -88,9 +88,9 @@ CREATE TABLE places (
 	lease_type VARCHAR(30) NOT NULL,
 	enabled BOOLEAN NOT NULL DEFAULT TRUE,
 	created_by VARCHAR(25) NOT NULL,
-    updated_by VARCHAR(25),
+    updated_by VARCHAR(25) NULL,
     created_at TIMESTAMP NOT NULL,
-    updated_at TIMESTAMP,
+    updated_at TIMESTAMP NULL,
 	CONSTRAINT additionals_pk PRIMARY KEY (id)
 );
 
@@ -103,9 +103,9 @@ CREATE TABLE additionals (
 	required_type VARCHAR(30) NOT NULL,
 	enabled BOOLEAN NOT NULL DEFAULT TRUE,
 	created_by VARCHAR(25) NOT NULL,
-    updated_by VARCHAR(25),
+    updated_by VARCHAR(25) NULL,
     created_at TIMESTAMP NOT NULL,
-    updated_at TIMESTAMP,
+    updated_at TIMESTAMP NULL,
 	CONSTRAINT additionals_pk PRIMARY KEY (id)
 );
 

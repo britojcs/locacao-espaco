@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-alert text outlined dense type="info">
+    <v-alert text outlined dense color="grey">
       <v-container>
         <v-row>
           <v-col cols="12" class="ma-0"> Variáveis disponíveis </v-col>
@@ -43,16 +43,16 @@
     <v-form class="mt-1" ref="contractform">
       <v-container>
         <v-row>
-          <v-col cols="12" md="4" class="py-0 ma-0 my-1">
+          <v-col cols="12" md="1" class="py-0 ma-0 my-1">
             <input type="hidden" :value="contract.id" />
             <v-checkbox
               class="ma-0 pa-0 form-label"
               v-model="model.enabled"
               label="Ativo"
               type="checkbox"
-            ></v-checkbox>
+            />
           </v-col>
-          <v-col cols="12" md="8" class="py-0 ma-0 my-1">
+          <v-col cols="12" md="3" class="py-0 ma-0 my-1">
             <v-text-field
               v-model="model.name"
               label="Nome"
@@ -65,30 +65,26 @@
                 minLength('Nome', 2),
                 maxLength('Nome', 50),
               ]"
-            ></v-text-field>
+            />
           </v-col>
-        </v-row>
-        <v-row>
-          <v-col class="py-0 ma-0 my-3">
-            <v-textarea
+          <v-col cols="12" md="8" class="py-0 ma-0 my-1">
+            <v-text-field
               v-model="model.description"
-              placeholder="Descrição"
-              :auto-grow="true"
-              class="ma-0 pa-0 form-label my-1"
-              counter="250"
-              rows="2"
-              clearable
+              label="Descrição"
+              class="ma-0 pa-0 form-label"
               dense
+              counter="250"
             />
           </v-col>
         </v-row>
         <v-row>
           <v-col class="py-0 ma-0 mt-1 mb-3">
+            Conteúdo do contrato
             <VueEditor
               v-model="model.content"
               :editor-toolbar="customToolbar"
               required
-              :rules="[required('Nome')]"
+              :rules="[required('Conteúdo do contrato')]"
             />
           </v-col>
         </v-row>

@@ -18,6 +18,7 @@
                   v-model="profile.username"
                   dense
                   readonly
+                  disabled
                 ></v-text-field>
                 <v-text-field
                   label="Nome"
@@ -27,14 +28,16 @@
                   v-model="profile.firstname"
                   :rules="[required('Nome')]"
                   @keyup.enter.native="handleSubmit()"
+                  :disabled="user.id == 1"
                 ></v-text-field>
                 <v-text-field
                   label="Sobrenome"
+                  dense
                   required
                   class="mt-1 mb-2 pa-0 form-label"
                   v-model="profile.lastname"
-                  dense
                   @keyup.enter.native="handleSubmit()"
+                  :disabled="user.id == 1"
                 ></v-text-field>
                 <v-row class="justify-end">
                   <v-btn
@@ -43,6 +46,7 @@
                     class="primary--text font-weight-bold"
                     @click="handleSubmit"
                     :loading="loading"
+                    :disabled="user.id == 1"
                     >Salvar</v-btn
                   >
                 </v-row>
@@ -63,7 +67,7 @@ import { EDIT_USER_PROFILE } from "@/store/_actiontypes";
 export default {
   data: () => ({
     loading: false,
-    profile: {},
+    profile: { firstname: "", lastname: "", username: "" },
     ...validations,
   }),
   computed: {
