@@ -12,15 +12,18 @@
             label="Tipo"
             return-object
             required
+            dense
+            outlined
             :rules="[required('Tipo')]"
           />
         </v-col>
-        <v-col cols="12" md="7" class="py-0 ma-0 my-1">
+        <v-col cols="12" md="7" class="py-0 ma-0 my-0">
           <v-text-field
             v-model="model.name"
             label="Contato"
             class="ma-0 pa-0 form-label"
             dense
+            outlined
             required
             counter="80"
             :rules="[
@@ -33,7 +36,7 @@
         </v-col>
       </v-row>
       <v-row>
-        <v-col cols="12" class="py-0 ma-0 my-1">
+        <v-col cols="12" class="py-0 ma-0 my-0">
           <v-textarea
             v-model="model.description"
             label="Descrição/Obervação"
@@ -42,6 +45,7 @@
             rows="2"
             clearable
             dense
+            outlined
           />
         </v-col>
       </v-row>

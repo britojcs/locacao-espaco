@@ -46,14 +46,12 @@ public class UserService {
 		if (checkUsernameExists(userDto.getUsername()))
 			throw new CustomException(MESSAGE_USERNAME_EXISTS, HttpStatus.BAD_REQUEST);
 
-		String defaultPassword = "@" + userDto.getUsername().toLowerCase();
-
 		User user = new User();
 		user.setRoles(roleDto.toModel(userDto.getRoles()));
 		user.setUsername(userDto.getUsername());
 		user.setFirstname(userDto.getFirstname());
 		user.setLastname(userDto.getLastname());
-		user.setPassword(passwordEncode.encode(defaultPassword));
+		user.setPassword(passwordEncode.encode(getDefaultPassword(userDto.getUsername())));
 		user.setEnabled(userDto.getEnabled());
 
 		return userAdapter.toDto(userRepository.save(user));
@@ -88,6 +86,14 @@ public class UserService {
 		user.setEnabled(user.getId() == Constants.ADMIN.ID ? true : userDto.getEnabled());
 
 		return userAdapter.toDto(userRepository.save(user));
+	}
+	
+	public void resetPassword(Long id) {
+		User user = userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(User.class, "id", String.valueOf(id)));
+
+		user.setPassword(passwordEncode.encode(getDefaultPassword(user.getUsername())));
+
+		userRepository.save(user);
 	}
 
 	public User findById(Long id) {
@@ -132,6 +138,10 @@ public class UserService {
 
 		if (user.getUsername() == userLogged.getUsername())
 			throw new CustomException("Você não pode se excluir", HttpStatus.BAD_REQUEST);
+	}
+	
+	private String getDefaultPassword(String username) {
+		return "@" + username.toLowerCase();
 	}
 
 }

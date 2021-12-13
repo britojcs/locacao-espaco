@@ -29,13 +29,13 @@ public class AccountController {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         userService.changeProfile(userProfileDto, user);
 
-        return ResponseUtil.mountResult_200("Perfil alterado com sucesso!");
+        return ResponseUtil.result_200("Perfil alterado com sucesso!");
     }
 
     @PostMapping("/password")
     public ResponseEntity<?> changePassword(@RequestBody @Valid PasswordChangerDto passwordChanger) {
         jwtUserDetailsService.changePassword(passwordChanger.oldPassword, passwordChanger.newPassword);
-        return ResponseUtil.mountResult_200("Senha alterada com sucesso!");
+        return ResponseUtil.result_200("Senha alterada com sucesso!");
     }
 
 }

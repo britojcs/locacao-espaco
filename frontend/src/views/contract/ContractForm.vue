@@ -43,7 +43,7 @@
     <v-form class="mt-1" ref="contractform">
       <v-container>
         <v-row>
-          <v-col cols="12" md="1" class="py-0 ma-0 my-1">
+          <v-col cols="12" md="1" class="py-0 ma-0 my-0">
             <input type="hidden" :value="contract.id" />
             <v-checkbox
               class="ma-0 pa-0 form-label"
@@ -52,12 +52,13 @@
               type="checkbox"
             />
           </v-col>
-          <v-col cols="12" md="3" class="py-0 ma-0 my-1">
+          <v-col cols="12" md="3" class="py-0 ma-0 my-0">
             <v-text-field
               v-model="model.name"
               label="Nome"
               class="ma-0 pa-0 form-label"
               dense
+              outlined
               required
               counter="50"
               :rules="[
@@ -67,12 +68,13 @@
               ]"
             />
           </v-col>
-          <v-col cols="12" md="8" class="py-0 ma-0 my-1">
+          <v-col cols="12" md="8" class="py-0 ma-0 my-0">
             <v-text-field
               v-model="model.description"
               label="Descrição"
               class="ma-0 pa-0 form-label"
               dense
+              outlined
               counter="250"
             />
           </v-col>

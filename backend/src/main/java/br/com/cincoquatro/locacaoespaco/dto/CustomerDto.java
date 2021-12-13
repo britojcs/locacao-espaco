@@ -25,10 +25,7 @@ public class CustomerDto {
 	@Pattern(regexp = Constants.REGEX.CPF_CNPJ, message = "CPF/CNPJ inválido!")
 	private String cpfCnpj;
 
-	@NotNull
-	@Pattern(regexp = Constants.REGEX.CEP, message = "CEP inválido!")
 	private String cep;
-
 	private String address;
 	private String addressComplement;
 	private String district;

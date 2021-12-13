@@ -2,21 +2,13 @@
   <v-form class="mt-1" ref="customerform">
     <v-container>
       <v-row>
-        <v-col cols="12" md="2" class="py-0 ma-0 my-1">
-          <input type="hidden" :value="customer.id" />
-          <v-checkbox
-            class="ma-0 pa-0 form-label"
-            v-model="model.enabled"
-            label="Ativo"
-            type="checkbox"
-          ></v-checkbox>
-        </v-col>
-        <v-col cols="12" md="6" class="py-0 ma-0 my-1">
+        <v-col cols="12" md="8" class="py-0 ma-0 my-0">
           <v-text-field
             v-model="model.fullname"
             label="Nome completo"
             class="ma-0 pa-0 form-label"
             dense
+            outlined
             required
             counter="80"
             :rules="[
@@ -26,20 +18,21 @@
             ]"
           ></v-text-field>
         </v-col>
-        <v-col cols="12" md="4" class="py-0 ma-0 my-1">
+        <v-col cols="12" md="4" class="py-0 ma-0 my-0">
           <v-text-field
             v-model="model.cpfCnpj"
             label="CPF/CNPJ"
             v-mask="['###.###.###-##', '##.###.###/####-##']"
             class="ma-0 pa-0 form-label"
             dense
+            outlined
             required
             :rules="[required('CPF/CNPJ')]"
           />
         </v-col>
       </v-row>
       <v-row>
-        <v-col cols="12" md="2" class="py-0 ma-0 my-1">
+        <v-col cols="12" md="2" class="py-0 ma-0 my-0">
           <v-text-field
             v-model="model.cep"
             label="CEP"
@@ -47,46 +40,51 @@
             v-mask="['#####-###']"
             @keyup="searchCep()"
             dense
+            outlined
             required
           />
         </v-col>
-        <v-col cols="12" md="6" class="py-0 ma-0 my-1">
+        <v-col cols="12" md="6" class="py-0 ma-0 my-0">
           <v-text-field
             v-model="model.address"
             label="Endereço"
             class="ma-0 pa-0 form-label"
             dense
+            outlined
             counter="80"
           />
         </v-col>
-        <v-col cols="12" md="4" class="py-0 ma-0 my-1">
+        <v-col cols="12" md="4" class="py-0 ma-0 my-0">
           <v-text-field
             v-model="model.addressComplement"
             label="Complemento"
             class="ma-0 pa-0 form-label"
             dense
+            outlined
             counter="80"
           />
         </v-col>
       </v-row>
       <v-row>
-        <v-col cols="12" md="5" class="py-0 ma-0 my-1">
+        <v-col cols="12" md="5" class="py-0 ma-0 my-0">
           <v-text-field
             v-model="model.district"
             label="Bairro"
             class="ma-0 pa-0 form-label"
             dense
+            outlined
           />
         </v-col>
-        <v-col cols="12" md="5" class="py-0 ma-0 my-1">
+        <v-col cols="12" md="4" class="py-0 ma-0 my-0">
           <v-text-field
             v-model="model.city"
             label="Cidade"
             class="ma-0 pa-0 form-label"
             dense
+            outlined
           />
         </v-col>
-        <v-col cols="12" md="2" class="py-0 ma-0 my-0">
+        <v-col cols="12" md="3" class="py-0 ma-0 my-0">
           <v-select
             v-model="model.state"
             :items="states"
@@ -94,6 +92,8 @@
             return-object
             class="ma-0 pa-0 form-label"
             label="Estado"
+            dense
+            outlined
           />
         </v-col>
       </v-row>

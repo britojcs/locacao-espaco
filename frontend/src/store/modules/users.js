@@ -4,7 +4,7 @@ import groupBy from 'lodash/groupBy';
 import map from 'lodash/map';
 import orderBy from 'lodash/orderBy';
 
-import { LOAD_USERS, CREATE_USER, EDIT_USER, REMOVE_USER, ADD_ALERT } from '@/store/_actiontypes';
+import { LOAD_USERS, CREATE_USER, EDIT_USER, REMOVE_USER, UPDATE_PASSWORD_USER, ADD_ALERT } from '@/store/_actiontypes';
 import { SET_USERS, ADD_USER, UPDATE_USER, DELETE_USER } from '@/store/_mutationtypes';
 
 const state = {
@@ -46,6 +46,12 @@ const actions = {
         commit(DELETE_USER, user.id);
         dispatch(`users/${LOAD_USERS}`, { page, itemsPerPage, sort, sortDesc }, { root: true });
         dispatch(`alert/${ADD_ALERT}`, { message: response.data.message || 'Usuário excluído com sucesso', color: 'success' }, { root: true });
+      })
+  },
+  [UPDATE_PASSWORD_USER]({ dispatch }, userId) {
+    return Api.put(`/users/${userId}/reset-password`)
+      .then(response => {
+        dispatch(`alert/${ADD_ALERT}`, { message: response.data.message || 'Senha alterada com sucesso', color: 'success' }, { root: true });
       })
   },
 }

@@ -16,25 +16,27 @@
                   label="Senha atual"
                   required
                   dense
-                  class="my-1 pa-0 form-label"
+                  outlined
+                  class="pa-0 form-label"
                   v-model="userPassword.oldPassword"
                   :type="showOldPassword ? 'text' : 'password'"
                   :append-icon="showOldPassword ? 'mdi-eye' : 'mdi-eye-off'"
                   @click:append="showOldPassword = !showOldPassword"
                   :rules="[required('Senha atual')]"
-                ></v-text-field>
+                />
                 <v-text-field
                   label="Nova senha"
                   required
                   dense
-                  class="mt-1 mb-2 pa-0 form-label"
+                  outlined
+                  class="mb-2 pa-0 form-label"
                   v-model="userPassword.newPassword"
                   :type="showNewPassword ? 'text' : 'password'"
                   :append-icon="showNewPassword ? 'mdi-eye' : 'mdi-eye-off'"
                   @click:append="showNewPassword = !showNewPassword"
                   :rules="[required('Nova senha'), minLength('Nova senha', 5)]"
                   @keyup.enter.native="handleSubmit()"
-                ></v-text-field>
+                />
                 <v-row class="justify-end">
                   <v-btn
                     small

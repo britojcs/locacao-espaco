@@ -1,85 +1,92 @@
 <template>
-  <div>
-    <v-container>
-      <v-layout row>
-        <v-flex xs12>
-          <v-data-table
-            :loading="loading"
-            :headers="headers"
-            :items="items"
-            :page="page"
-            :page-count="totalPages"
-            :options.sync="options"
-            :items-per-page="itemsPerPage"
-            :footer-props="{
-              'items-per-page-options': [5, 10, 20, 30, 40, 50],
-            }"
-            :server-items-length="totalElements"
-            class="elevation-1"
-          >
-            <template v-slot:top>
-              <div class="d-flex align-center pa-4">
-                <span class="primary--text font-weight-medium">Contratos</span>
-                <v-divider
-                  class="mx-2 my-1"
-                  inset
-                  vertical
-                  style="height: 20px"
-                ></v-divider>
-                <v-spacer></v-spacer>
-                <v-dialog v-model="dialog" max-width="1115px">
-                  <template v-slot:activator="{ on }">
-                    <v-btn
-                      outlined
-                      small
-                      class="primary--text font-weight-bold"
-                      v-on="on"
-                    >
-                      <v-icon left> mdi-plus-thick </v-icon>
-                      Novo</v-btn
-                    >
-                  </template>
-                  <v-card>
-                    <v-card-title>
-                      <span class="text-h5">{{ formTitle }}</span>
-                    </v-card-title>
+  <v-container>
+    <v-layout row>
+      <v-flex xs12>
+        <v-data-table
+          :loading="loading"
+          :headers="headers"
+          :items="items"
+          :page="page"
+          :page-count="totalPages"
+          :options.sync="options"
+          :items-per-page="itemsPerPage"
+          :footer-props="{
+            'items-per-page-options': [5, 10, 20, 30, 40, 50],
+          }"
+          :server-items-length="totalElements"
+          class="elevation-1"
+        >
+          <template v-slot:top>
+            <div class="d-flex align-center pa-4">
+              <span class="primary--text font-weight-medium">Contratos</span>
+              <v-divider
+                class="mx-2 my-1"
+                inset
+                vertical
+                style="height: 20px"
+              ></v-divider>
+              <v-spacer></v-spacer>
+              <v-dialog v-model="dialog" max-width="1115px">
+                <template v-slot:activator="{ on }">
+                  <v-btn
+                    outlined
+                    small
+                    class="primary--text font-weight-bold"
+                    v-on="on"
+                  >
+                    <v-icon left> mdi-plus-thick </v-icon>
+                    Novo</v-btn
+                  >
+                </template>
+                <v-card>
+                  <v-card-title>
+                    <span class="text-h5">{{ formTitle }}</span>
+                  </v-card-title>
 
-                    <v-card-text>
-                      <ContractForm
-                        :contract="editedContract"
-                        :showCloseButton="true"
-                        :onCloseClick="close"
-                        :onSubmitClick="saveContract"
-                        :loading="loading"
-                        ref="form"
-                      />
-                    </v-card-text>
-                  </v-card>
-                </v-dialog>
-              </div>
-            </template>
-            <template v-slot:[`item.enabled`]="{ item }">
-              <v-chip
-                :color="getColorEnabled(item.enabled)"
-                style="padding: 0px; height: 12px; width: 12px"
-                flat
-                small
-                class="ml-1 mb-1"
-              ></v-chip>
-            </template>
-            <template v-slot:[`item.action`]="{ item }">
-              <div class="d-flex justify-end">
-                <v-icon small class="mr-2" @click="editContract(item)"
-                  >edit</v-icon
-                >
-                <v-icon small @click="deleteContract(item)">delete</v-icon>
-              </div>
-            </template>
-          </v-data-table>
-        </v-flex>
-      </v-layout>
-    </v-container>
-  </div>
+                  <v-card-text>
+                    <ContractForm
+                      :contract="editedContract"
+                      :showCloseButton="true"
+                      :onCloseClick="close"
+                      :onSubmitClick="saveContract"
+                      :loading="loading"
+                      ref="form"
+                    />
+                  </v-card-text>
+                </v-card>
+              </v-dialog>
+            </div>
+          </template>
+          <template v-slot:[`item.enabled`]="{ item }">
+            <v-chip
+              :color="getColorEnabled(item.enabled)"
+              style="padding: 0px; height: 12px; width: 12px"
+              flat
+              small
+              class="ml-1 mb-1"
+            ></v-chip>
+          </template>
+          <template v-slot:[`item.action`]="{ item }">
+            <div class="d-flex justify-end">
+              <IconTip
+                icon="edit"
+                tooltip="Editar"
+                eventname="editRecord"
+                @editRecord="editContract(item)"
+              />
+              <IconTip
+                icon="delete"
+                tooltip="Excluir"
+                eventname="deleteRecord"
+                @deleteRecord="deleteContract(item)"
+              />
+            </div>
+          </template>
+        </v-data-table>
+      </v-flex>
+    </v-layout>
+    <ConfirmDialog ref="confirm" />
+  </v-container>
 </template>
 
 <script>
@@ -91,9 +98,11 @@ import {
   REMOVE_CONTRACT,
 } from "@/store/_actiontypes";
 import ContractForm from "@/views/contract/ContractForm";
+import ConfirmDialog from "@/components/dialog/ConfirmDialog";
+import IconTip from "@/components/tooltip/IconTip";
 
 export default {
-  components: { ContractForm },
+  components: { ContractForm, ConfirmDialog, IconTip },
   data: () => ({
     loading: false,
     dialog: false,
@@ -101,7 +110,7 @@ export default {
     itemsPerPage: 10,
     options: {},
     headers: [
-      { text: "Código", value: "id", width: 90 /*, align: " d-none"*/ },
+      { text: "Código", value: "id", align: " d-none" },
       { text: "Nome", value: "name" },
       { text: "Descrição", value: "description" },
       { text: "Última atualização", value: "updatedAt", width: 180 },
@@ -158,9 +167,14 @@ export default {
       this.editedContract = Object.assign({}, item);
       this.dialog = true;
     },
-    deleteContract(item) {
-      confirm("Tem certeza de que deseja excluir este Contrato?") &&
+    async deleteContract(item) {
+      if (
+        await this.$refs.confirm.open({
+          message: "Tem certeza de que deseja excluir este Contrato?",
+        })
+      ) {
         this.REMOVE_CONTRACT(this.getPageOptions(item));
+      }
     },
     close() {
       this.dialog = false;

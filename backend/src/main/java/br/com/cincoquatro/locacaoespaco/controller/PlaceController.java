@@ -70,7 +70,7 @@ public class PlaceController {
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_PLACE')")
 	public ResponseEntity<?> deletePlace(@PathVariable("id") Long id) {
 		placeService.delete(id);
-		return ResponseUtil.mountResult_200("Espaço excluído com sucesso!");
+		return ResponseUtil.result_200("Espaço excluído com sucesso!");
 	}
 
 }

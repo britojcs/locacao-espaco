@@ -79,7 +79,7 @@ public class ContractController {
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_CONTRACT')")
 	public ResponseEntity<?> deleteContract(@PathVariable("id") Long id) {
 		contractService.delete(id);
-		return ResponseUtil.mountResult_200("Contrato excluído com sucesso!");
+		return ResponseUtil.result_200("Contrato excluído com sucesso!");
 	}
 
 }

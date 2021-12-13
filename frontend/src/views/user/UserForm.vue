@@ -1,15 +1,15 @@
 <template>
   <v-form class="mt-1" ref="userform">
     <v-container>
-      <v-row>
-        <v-col cols="12" md="12" class="py-0 ma-0 my-1">
-          <v-alert dense text outlined type="warning">
-            O nome de usuário não deve ter espaços ou caracteres especiais
+      <v-row v-if="model.id == 0">
+        <v-col cols="12" md="12" class="py-0 ma-0 my-0">
+          <v-alert dense text outlined color="warning">
+            Senha inicial do usuário: <b>{{ firstPassword }}</b>
           </v-alert>
         </v-col>
       </v-row>
       <v-row>
-        <v-col cols="12" md="4" class="py-0 ma-0 my-1">
+        <v-col cols="12" md="4" class="py-0 ma-0 my-0">
           <input type="hidden" :value="user.id" />
           <v-checkbox
             class="ma-0 pa-0 form-label"
@@ -17,15 +17,17 @@
             :disabled="model.id == 1"
             label="Ativo"
             type="checkbox"
-          ></v-checkbox>
+          />
         </v-col>
-        <v-col cols="12" md="8" class="py-0 ma-0 my-1">
+        <v-col cols="12" md="8" class="py-0 ma-0 my-0">
           <v-text-field
             v-model="model.username"
             :disabled="model.id == 1"
+            onkeypress="return /^[a-zA-Z\.]$/i.test(event.key)"
             label="Usuário/login"
             class="ma-0 pa-0 form-label"
             dense
+            outlined
             required
             counter="30"
             :rules="[
@@ -33,7 +35,7 @@
               minLength('Usuário/Login', 5),
               maxLength('Usuário/Login', 30),
             ]"
-          ></v-text-field>
+          />
         </v-col>
       </v-row>
       <v-row>
@@ -43,6 +45,7 @@
             label="Nome"
             class="ma-0 pa-0 form-label"
             dense
+            outlined
             required
             counter="30"
             :rules="[
@@ -50,7 +53,7 @@
               minLength('Nome', 2),
               maxLength('Nome', 30),
             ]"
-          ></v-text-field>
+          />
         </v-col>
         <v-col cols="12" md="8" class="py-0 ma-0">
           <v-text-field
@@ -58,8 +61,9 @@
             label="Sobrenome"
             class="ma-0 pa-0 form-label"
             dense
+            outlined
             counter="50"
-          ></v-text-field>
+          />
         </v-col>
       </v-row>
       <v-row>
@@ -71,6 +75,8 @@
             return-object
             small-chips
             multiple
+            dense
+            outlined
             label="Permissões"
             required
             :rules="[required('Permissão')]"
@@ -162,6 +168,9 @@ export default {
       set(user) {
         this.$emit("input", user);
       },
+    },
+    firstPassword() {
+      return `@${this.model.username.toLowerCase()}`;
     },
     likesAllRoles() {
       return this.user.roles.length === this.roles.length;

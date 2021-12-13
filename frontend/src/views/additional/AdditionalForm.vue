@@ -2,14 +2,16 @@
   <v-form class="mt-1" ref="additionalform">
     <v-container>
       <v-row>
-        <v-col cols="12" md="3" class="py-0 ma-0 my-1">
+        <v-col cols="12" md="3" class="py-0 ma-0 my-0">
           <input type="hidden" :value="model.id" />
           <v-checkbox
             class="ma-0 pa-0 form-label"
             v-model="model.enabled"
             label="Ativo"
             type="checkbox"
-          ></v-checkbox>
+            dense
+            outlined
+          />
         </v-col>
         <v-col cols="12" md="9" class="py-0 ma-0 my-0">
           <v-select
@@ -20,6 +22,8 @@
             label="Obrigatoriedade"
             return-object
             required
+            dense
+            outlined
             :rules="[required('Obrigatoriedade')]"
           />
         </v-col>
@@ -32,16 +36,18 @@
             label="Valor"
             class="ma-0 pa-0 form-label"
             dense
+            outlined
             required
             :rules="[required('Valor')]"
           />
         </v-col>
-        <v-col cols="12" md="9" class="py-0 ma-0 my-1">
+        <v-col cols="12" md="9" class="py-0 ma-0 my-0">
           <v-text-field
             v-model="model.name"
             label="Descrição"
             class="ma-0 pa-0 form-label"
             dense
+            outlined
             required
             counter="80"
             :rules="[
@@ -53,15 +59,16 @@
         </v-col>
       </v-row>
       <v-row>
-        <v-col cols="12" class="py-0 ma-0 my-1">
+        <v-col cols="12" class="py-0 ma-0 my-0">
           <v-textarea
             v-model="model.additionalPackage"
             label="Adicional Múltiplo"
             :auto-grow="true"
-            class="ma-0 pa-0 form-label my-1"
+            class="ma-0 pa-0 form-label"
             rows="4"
             clearable
             dense
+            outlined
           />
         </v-col>
       </v-row>

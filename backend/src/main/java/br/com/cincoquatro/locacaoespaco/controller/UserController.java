@@ -42,7 +42,7 @@ public class UserController {
 	public ResponseEntity<SimplePage<UserDto>> users(@SortDefault(sort = "username") @PageableDefault(size = PAGE.SIZE) Pageable pageable) {
 		return ResponseEntity.ok(userService.findAll(pageable));
 	}
-	
+
 	@ResponseBody
 	@GetMapping("/{id}")
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
@@ -66,11 +66,19 @@ public class UserController {
 	}
 
 	@ResponseBody
+	@PutMapping("/{id}/reset-password")
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+	public ResponseEntity<?> resetPassword(@PathVariable("id") Long id) {
+		userService.resetPassword(id);
+		return ResponseUtil.result_200("Senha resetada com sucesso!");
+	}
+
+	@ResponseBody
 	@DeleteMapping("/{id}")
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
 	public ResponseEntity<?> deleteUser(@PathVariable("id") Long id) {
 		userService.delete(id);
-		return ResponseUtil.mountResult_200("Usuário excluído com sucesso!");
+		return ResponseUtil.result_200("Usuário excluído com sucesso!");
 	}
 
 	@GetMapping("/whoami")

@@ -75,7 +75,7 @@ public class CustomerController {
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_CUSTOMER')")
 	public ResponseEntity<?> deleteCustomer(@PathVariable("id") Long id) {
 		customerService.delete(id);
-		return ResponseUtil.mountResult_200("Cliente excluído com sucesso!");
+		return ResponseUtil.result_200("Cliente excluído com sucesso!");
 	}
 
 	@ResponseBody

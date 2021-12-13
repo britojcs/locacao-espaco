@@ -1,87 +1,94 @@
 <template>
-  <div>
-    <v-container>
-      <v-layout row>
-        <v-flex xs12>
-          <v-data-table
-            :loading="loading"
-            :headers="headers"
-            :items="items"
-            :page="page"
-            :page-count="totalPages"
-            :options.sync="options"
-            :items-per-page="itemsPerPage"
-            :footer-props="{
-              'items-per-page-options': [5, 10, 20, 30, 40, 50],
-            }"
-            :server-items-length="totalElements"
-            class="elevation-1"
-          >
-            <template v-slot:top>
-              <div class="d-flex align-center pa-4">
-                <span class="primary--text font-weight-medium"
-                  >Contatos de <b>{{ contactOwnerName }}</b></span
-                >
-                <v-divider
-                  class="mx-2 my-1"
-                  inset
-                  vertical
-                  style="height: 20px"
-                ></v-divider>
-                <v-spacer></v-spacer>
-                <v-btn
-                  outlined
-                  small
-                  class="primary--text font-weight-bold mr-2"
-                  @click="$router.push('/clientes')"
-                >
-                  <v-icon left> mdi-arrow-left-thick </v-icon>
-                  Voltar</v-btn
-                >
-                <v-dialog v-model="dialog" max-width="650px">
-                  <template v-slot:activator="{ on }">
-                    <v-btn
-                      outlined
-                      small
-                      class="primary--text font-weight-bold"
-                      v-on="on"
-                    >
-                      <v-icon left> mdi-plus-thick </v-icon>
-                      Novo</v-btn
-                    >
-                  </template>
-                  <v-card>
-                    <v-card-title>
-                      <span class="text-h5">{{ formTitle }}</span>
-                    </v-card-title>
+  <v-container>
+    <v-layout row>
+      <v-flex xs12>
+        <v-data-table
+          :loading="loading"
+          :headers="headers"
+          :items="items"
+          :page="page"
+          :page-count="totalPages"
+          :options.sync="options"
+          :items-per-page="itemsPerPage"
+          :footer-props="{
+            'items-per-page-options': [5, 10, 20, 30, 40, 50],
+          }"
+          :server-items-length="totalElements"
+          class="elevation-1"
+        >
+          <template v-slot:top>
+            <div class="d-flex align-center pa-4">
+              <span class="primary--text font-weight-medium"
+                >Contatos de <b>{{ contactOwnerName }}</b></span
+              >
+              <v-divider
+                class="mx-2 my-1"
+                inset
+                vertical
+                style="height: 20px"
+              ></v-divider>
+              <v-spacer></v-spacer>
+              <v-btn
+                outlined
+                small
+                class="primary--text font-weight-bold mr-2"
+                @click="$router.push('/clientes')"
+              >
+                <v-icon left> mdi-arrow-left-thick </v-icon>
+                Voltar</v-btn
+              >
+              <v-dialog v-model="dialog" max-width="650px">
+                <template v-slot:activator="{ on }">
+                  <v-btn
+                    outlined
+                    small
+                    class="primary--text font-weight-bold"
+                    v-on="on"
+                  >
+                    <v-icon left> mdi-plus-thick </v-icon>
+                    Novo</v-btn
+                  >
+                </template>
+                <v-card>
+                  <v-card-title>
+                    <span class="text-h5">{{ formTitle }}</span>
+                  </v-card-title>
 
-                    <v-card-text>
-                      <ContactForm
-                        :contact="editedContact"
-                        :showCloseButton="true"
-                        :onCloseClick="close"
-                        :onSubmitClick="saveContact"
-                        :loading="loading"
-                        ref="form"
-                      />
-                    </v-card-text>
-                  </v-card>
-                </v-dialog>
-              </div>
-            </template>
-            <template v-slot:[`item.action`]="{ item }">
-              <div class="d-flex justify-end">
-                <v-icon small class="mr-2" @click="editContact(item)"
-                  >edit</v-icon
-                >
-                <v-icon small @click="deleteContact(item)">delete</v-icon>
-              </div>
-            </template>
-          </v-data-table>
-        </v-flex>
-      </v-layout>
-    </v-container>
-  </div>
+                  <v-card-text>
+                    <ContactForm
+                      :contact="editedContact"
+                      :showCloseButton="true"
+                      :onCloseClick="close"
+                      :onSubmitClick="saveContact"
+                      :loading="loading"
+                      ref="form"
+                    />
+                  </v-card-text>
+                </v-card>
+              </v-dialog>
+            </div>
+          </template>
+          <template v-slot:[`item.action`]="{ item }">
+            <div class="d-flex justify-end">
+              <IconTip
+                icon="edit"
+                tooltip="Editar"
+                eventname="editRecord"
+                @editRecord="editContact(item)"
+              />
+              <IconTip
+                icon="delete"
+                tooltip="Excluir"
+                eventname="deleteRecord"
+                @deleteRecord="deleteContact(item)"
+              />
+            </div>
+          </template>
+        </v-data-table>
+      </v-flex>
+    </v-layout>
+    <ConfirmDialog ref="confirm" />
+  </v-container>
 </template>
 
 <script>
@@ -94,9 +101,11 @@ import {
   REMOVE_CONTACT,
 } from "@/store/_actiontypes";
 import ContactForm from "@/views/contact/ContactForm";
+import ConfirmDialog from "@/components/dialog/ConfirmDialog";
+import IconTip from "@/components/tooltip/IconTip";
 
 export default {
-  components: { ContactForm },
+  components: { ContactForm, ConfirmDialog, IconTip },
   data: () => ({
     loading: false,
     dialog: false,
@@ -180,9 +189,14 @@ export default {
       this.editedContact = Object.assign({}, item);
       this.dialog = true;
     },
-    deleteContact(item) {
-      confirm("Tem certeza de que deseja excluir este Contato?") &&
+    async deleteContact(item) {
+      if (
+        await this.$refs.confirm.open({
+          message: "Tem certeza de que deseja excluir este Contato?",
+        })
+      ) {
         this.REMOVE_CONTACT(this.getPageOptions(item));
+      }
     },
     close() {
       this.dialog = false;

@@ -58,7 +58,7 @@ public class ContactController {
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_CUSTOMER')")
 	public ResponseEntity<?> deleteContact(@PathVariable("id") Long id) {
 		customerContactService.delete(id);
-		return ResponseUtil.mountResult_200("Contato excluído com sucesso!");
+		return ResponseUtil.result_200("Contato excluído com sucesso!");
 	}
 
 }

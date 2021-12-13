@@ -14,31 +14,34 @@
               <v-container>
                 <v-text-field
                   label="Usuário/Login"
-                  class="my-1 pa-0 form-label"
+                  class="pa-0 form-label"
                   v-model="profile.username"
                   dense
+                  outlined
                   readonly
                   disabled
-                ></v-text-field>
+                />
                 <v-text-field
                   label="Nome"
                   required
                   dense
-                  class="my-1 pa-0 form-label"
+                  outlined
+                  class="pa-0 form-label"
                   v-model="profile.firstname"
                   :rules="[required('Nome')]"
                   @keyup.enter.native="handleSubmit()"
                   :disabled="user.id == 1"
-                ></v-text-field>
+                />
                 <v-text-field
                   label="Sobrenome"
                   dense
+                  outlined
                   required
-                  class="mt-1 mb-2 pa-0 form-label"
+                  class="mb-2 pa-0 form-label"
                   v-model="profile.lastname"
                   @keyup.enter.native="handleSubmit()"
                   :disabled="user.id == 1"
-                ></v-text-field>
+                />
                 <v-row class="justify-end">
                   <v-btn
                     small

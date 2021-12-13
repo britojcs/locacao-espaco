@@ -26,6 +26,7 @@ export const EDIT_USER_PASSWORD = 'EDIT_USER_PASSWORD';
 export const CREATE_USER = 'CREATE_USER';
 export const EDIT_USER = 'EDIT_USER';
 export const REMOVE_USER = 'REMOVE_USER';
+export const UPDATE_PASSWORD_USER = 'UPDATE_PASSWORD_USER';
 export const LOAD_USERS = 'LOAD_USERS';
 
 // CUSTOMERS

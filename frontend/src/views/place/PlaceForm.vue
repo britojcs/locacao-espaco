@@ -2,21 +2,22 @@
   <v-form class="mt-1" ref="placeform">
     <v-container>
       <v-row>
-        <v-col cols="12" md="3" class="py-0 ma-0 my-1">
+        <v-col cols="12" md="3" class="py-0 ma-0 my-0">
           <input type="hidden" :value="model.id" />
           <v-checkbox
             class="ma-0 pa-0 form-label"
             v-model="model.enabled"
             label="Ativo"
             type="checkbox"
-          ></v-checkbox>
+          />
         </v-col>
-        <v-col cols="12" md="9" class="py-0 ma-0 my-1">
+        <v-col cols="12" md="9" class="py-0 ma-0 my-0">
           <v-text-field
             v-model="model.name"
             label="Nome"
             class="ma-0 pa-0 form-label"
             dense
+            outlined
             required
             counter="80"
             :rules="[
@@ -28,13 +29,14 @@
         </v-col>
       </v-row>
       <v-row>
-        <v-col cols="12" md="3" class="py-0 ma-0 my-1">
+        <v-col cols="12" md="3" class="py-0 ma-0 my-0">
           <CurrencyField
             v-model="model.value"
             valueWhenIsEmpty="0"
             label="Valor"
             class="ma-0 pa-0 form-label"
             dense
+            outlined
             required
             :rules="[required('Valor')]"
           />
@@ -47,6 +49,8 @@
             class="ma-0 pa-0 form-label"
             label="Tipo de locação"
             return-object
+            dense
+            outlined
             required
             :rules="[required('Tipo de locação')]"
           />

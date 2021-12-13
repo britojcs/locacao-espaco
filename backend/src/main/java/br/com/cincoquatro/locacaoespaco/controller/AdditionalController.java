@@ -70,7 +70,7 @@ public class AdditionalController {
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_ADDITIONAL')")
 	public ResponseEntity<?> deleteAdditional(@PathVariable("id") Long id) {
 		additionalService.delete(id);
-		return ResponseUtil.mountResult_200("Adicional excluído com sucesso!");
+		return ResponseUtil.result_200("Adicional excluído com sucesso!");
 	}
 
 }
