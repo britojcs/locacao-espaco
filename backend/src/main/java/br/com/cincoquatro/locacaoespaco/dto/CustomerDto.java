@@ -31,7 +31,6 @@ public class CustomerDto {
 	private String district;
 	private String city;
 
-	@NotNull
 	private StateDto state;
 
 }

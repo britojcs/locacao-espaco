@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import br.com.cincoquatro.locacaoespaco.dto.RoleDto;
 import br.com.cincoquatro.locacaoespaco.dto.UserDto;
 import br.com.cincoquatro.locacaoespaco.model.User;
+import br.com.cincoquatro.locacaoespaco.util.StringUtil;
 
 @Component
 public class UserAdapter extends BaseAdapter<User, UserDto> {
@@ -36,9 +37,9 @@ public class UserAdapter extends BaseAdapter<User, UserDto> {
 			user = new User();
 
 		user.setId(userDto.getId());
-		user.setUsername(userDto.getUsername());
-		user.setFirstname(userDto.getFirstname());
-		user.setLastname(userDto.getLastname());
+		user.setUsername(StringUtil.toUpperCase(userDto.getUsername()));
+		user.setFirstname(StringUtil.toUpperCase(userDto.getFirstname()));
+		user.setLastname(StringUtil.toUpperCase(userDto.getLastname()));
 		user.setRoles(new RoleDto().toModel(userDto.getRoles()));
 		user.setEnabled(userDto.getEnabled());
 		user.setLastLoginAt(userDto.getLastLoginAt());

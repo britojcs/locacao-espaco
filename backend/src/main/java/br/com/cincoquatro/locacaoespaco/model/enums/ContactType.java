@@ -6,10 +6,10 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public enum ContactType {
 
 	// @formatter:off
-	PERSONAL_EMAIL("Email pessoal"),
-    BUSINESS_EMAIL("Email comercial"),
-    PERSONAL_PHONE("Telefone pessoal"),
-    BUSINESS_PHONE("Telefone comercial");
+	PERSONAL_EMAIL("EMAIL PESSOAL"),
+    BUSINESS_EMAIL("EMAIL COMERCIAL"),
+    PERSONAL_PHONE("TELEFONE PESSOAL"),
+    BUSINESS_PHONE("TELEFONE COMERCIAL");
 	// @formatter:on    
 
 	private final String description;

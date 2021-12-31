@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import br.com.cincoquatro.locacaoespaco.dto.CustomerDto;
 import br.com.cincoquatro.locacaoespaco.dto.StateDto;
 import br.com.cincoquatro.locacaoespaco.model.Customer;
+import br.com.cincoquatro.locacaoespaco.util.StringUtil;
 
 @Component
 public class CustomerAdapter extends BaseAdapter<Customer, CustomerDto> {
@@ -37,14 +38,14 @@ public class CustomerAdapter extends BaseAdapter<Customer, CustomerDto> {
 			customer = new Customer();
 
 		customer.setId(customerDto.getId());
-		customer.setFullname(customerDto.getFullname());
+		customer.setFullname(StringUtil.toUpperCase(customerDto.getFullname()));
 		customer.setCpfCnpj(customerDto.getCpfCnpj());
 		customer.setCep(customerDto.getCep());
-		customer.setAddress(customerDto.getAddress());
-		customer.setAddressComplement(customerDto.getAddressComplement());
-		customer.setDistrict(customerDto.getDistrict());
-		customer.setCity(customerDto.getCity());
-		customer.setState(new StateDto().toModel(customerDto.getState().name));
+		customer.setAddress(StringUtil.toUpperCase(customerDto.getAddress()));
+		customer.setAddressComplement(StringUtil.toUpperCase(customerDto.getAddressComplement()));
+		customer.setDistrict(StringUtil.toUpperCase(customerDto.getDistrict()));
+		customer.setCity(StringUtil.toUpperCase(customerDto.getCity()));
+		customer.setState(customerDto.getState() != null ? new StateDto().toModel(customerDto.getState().name) : null);
 
 		return customer;
 	}

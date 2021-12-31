@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-snackbar v-model="alert.show" :color="alert.color" top>
+    <v-snackbar v-model="alert.show" :color="alert.color" top right>
       {{ alert.message }}
       <template v-slot:action="{ attrs }">
         <v-icon small dark v-bind="attrs" @click="alert.show = false"

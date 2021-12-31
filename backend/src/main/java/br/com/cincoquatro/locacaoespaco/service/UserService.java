@@ -10,6 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -35,7 +39,10 @@ public class UserService {
 	private UserRepository userRepository;
 
 	@Autowired
-	PasswordEncoder passwordEncode;
+	private PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private AuthenticationManager authenticationManager;
 
 	@Autowired
 	UserAdapter userAdapter;
@@ -51,7 +58,7 @@ public class UserService {
 		user.setUsername(userDto.getUsername());
 		user.setFirstname(userDto.getFirstname());
 		user.setLastname(userDto.getLastname());
-		user.setPassword(passwordEncode.encode(getDefaultPassword(userDto.getUsername())));
+		user.setPassword(passwordEncoder.encode(getDefaultPassword(userDto.getUsername())));
 		user.setEnabled(userDto.getEnabled());
 
 		return userAdapter.toDto(userRepository.save(user));
@@ -91,7 +98,7 @@ public class UserService {
 	public void resetPassword(Long id) {
 		User user = userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(User.class, "id", String.valueOf(id)));
 
-		user.setPassword(passwordEncode.encode(getDefaultPassword(user.getUsername())));
+		user.setPassword(passwordEncoder.encode(getDefaultPassword(user.getUsername())));
 
 		userRepository.save(user);
 	}
@@ -104,6 +111,25 @@ public class UserService {
 		final Page<User> usersPage = userRepository.findAll(pageable);
 		return new SimplePage<>(usersPage.getContent().stream().map(customer -> userAdapter.toDto(customer)).collect(Collectors.toList()),
 				usersPage.getTotalElements(), pageable);
+	}
+	
+	public void changePassword(String oldPassword, String newPassword) throws AuthenticationException {
+		Authentication currentUser = SecurityContextHolder.getContext().getAuthentication();
+		String username = currentUser.getName();
+
+		if (authenticationManager != null) {
+			try {
+				authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, oldPassword));
+			} catch (AuthenticationException e) {
+				throw new CustomException("Senha atual incorreta", HttpStatus.BAD_REQUEST);
+			}
+			
+		} else
+			return;
+
+		User user = (User) userRepository.findByUsernameIgnoreCase(username).get();
+		user.setPassword(passwordEncoder.encode(newPassword));
+		userRepository.save(user);
 	}
 
 	public void changeProfile(UserProfileDto userProfileDto, User user) {

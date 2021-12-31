@@ -14,6 +14,7 @@
         <v-col cols="12" md="9" class="py-0 ma-0 my-0">
           <v-text-field
             v-model="model.name"
+            @input="model.name = uppercase(model.name)"
             label="Nome"
             class="ma-0 pa-0 form-label"
             dense
@@ -86,6 +87,7 @@
 <script>
 import { mapState } from "vuex";
 import validations from "@/helpers/validations";
+import { uppercase } from "@/helpers/string-util";
 import { LOAD_LEASE_TYPES } from "@/store/_actiontypes";
 import CurrencyField from "../../components/textfield/CurrencyField.vue";
 
@@ -112,6 +114,7 @@ export default {
   data() {
     return {
       ...validations,
+      uppercase,
     };
   },
   mounted() {

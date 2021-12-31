@@ -6,8 +6,12 @@ import router from '@/router/index';
 // let isRefreshingToken = false;
 // let callbacks = [];
 
+var baseURL = window.location.protocol + "//" + window.location.host;
+if (window.location.hostname === 'localhost')
+  baseURL = 'http://localhost:8000';
+
 let api = axios.create({
-  baseURL: process.env.VUE_APP_BASE_URL
+  baseURL: baseURL + '/api'
 });
 
 api.interceptors.request.use((request) => {

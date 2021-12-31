@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import br.com.cincoquatro.locacaoespaco.dto.LeaseTypeDto;
 import br.com.cincoquatro.locacaoespaco.dto.PlaceDto;
 import br.com.cincoquatro.locacaoespaco.model.Place;
+import br.com.cincoquatro.locacaoespaco.util.StringUtil;
 
 @Component
 public class PlaceAdapter extends BaseAdapter<Place, PlaceDto> {
@@ -34,7 +35,7 @@ public class PlaceAdapter extends BaseAdapter<Place, PlaceDto> {
 
 		place.setId(placeDto.getId());
 		place.setLeaseType(new LeaseTypeDto().toModel(placeDto.getLeaseType().name));
-		place.setName(placeDto.getName());
+		place.setName(StringUtil.toUpperCase(placeDto.getName()));
 		place.setValue(placeDto.getValue());
 		place.setEnabled(placeDto.getEnabled());
 

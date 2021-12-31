@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 
 import br.com.cincoquatro.locacaoespaco.dto.ContractDto;
 import br.com.cincoquatro.locacaoespaco.model.Contract;
+import br.com.cincoquatro.locacaoespaco.util.StringUtil;
 
 @Component
 public class ContractAdapter extends BaseAdapter<Contract, ContractDto> {
@@ -33,8 +34,8 @@ public class ContractAdapter extends BaseAdapter<Contract, ContractDto> {
 			contract = new Contract();
 
 		contract.setId(contractDto.getId());
-		contract.setName(contractDto.getName());
-		contract.setDescription(contractDto.getDescription());
+		contract.setName(StringUtil.toUpperCase(contractDto.getName()));
+		contract.setDescription(StringUtil.toUpperCase(contractDto.getDescription()));
 		contract.setContent(contractDto.getContent());
 		contract.setEnabled(contractDto.getEnabled());
 

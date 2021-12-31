@@ -10,7 +10,7 @@ CREATE TABLE users (
     last_login_at TIMESTAMP NULL,
     created_by VARCHAR(25) NOT NULL,
     updated_by VARCHAR(25) NULL,
-    created_at TIMESTAMP NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP NULL,
     CONSTRAINT users_pk PRIMARY KEY (id)
 );
@@ -34,7 +34,7 @@ CREATE TABLE contracts (
     enabled BOOLEAN NOT NULL DEFAULT TRUE,
     created_by VARCHAR(25) NOT NULL,
     updated_by VARCHAR(25) NULL,
-    created_at TIMESTAMP NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP NULL,
     CONSTRAINT contracts_pk PRIMARY KEY (id)
 );
@@ -63,7 +63,7 @@ CREATE TABLE customers (
     state VARCHAR(2) NULL,
     created_by VARCHAR(25) NOT NULL,
     updated_by VARCHAR(25) NULL,
-    created_at TIMESTAMP NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP NULL,
     CONSTRAINT customers_pk PRIMARY KEY (id)
 );
@@ -89,7 +89,7 @@ CREATE TABLE places (
 	enabled BOOLEAN NOT NULL DEFAULT TRUE,
 	created_by VARCHAR(25) NOT NULL,
     updated_by VARCHAR(25) NULL,
-    created_at TIMESTAMP NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP NULL,
 	CONSTRAINT additionals_pk PRIMARY KEY (id)
 );
@@ -104,7 +104,7 @@ CREATE TABLE additionals (
 	enabled BOOLEAN NOT NULL DEFAULT TRUE,
 	created_by VARCHAR(25) NOT NULL,
     updated_by VARCHAR(25) NULL,
-    created_at TIMESTAMP NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP NULL,
 	CONSTRAINT additionals_pk PRIMARY KEY (id)
 );

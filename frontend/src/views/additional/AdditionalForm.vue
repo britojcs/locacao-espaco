@@ -44,6 +44,7 @@
         <v-col cols="12" md="9" class="py-0 ma-0 my-0">
           <v-text-field
             v-model="model.name"
+            @input="model.name = uppercase(model.name)"
             label="Descrição"
             class="ma-0 pa-0 form-label"
             dense
@@ -62,6 +63,9 @@
         <v-col cols="12" class="py-0 ma-0 my-0">
           <v-textarea
             v-model="model.additionalPackage"
+            @input="
+              model.additionalPackage = uppercase(model.additionalPackage)
+            "
             label="Adicional Múltiplo"
             :auto-grow="true"
             class="ma-0 pa-0 form-label"
@@ -102,6 +106,7 @@
 <script>
 import { mapState } from "vuex";
 import validations from "@/helpers/validations";
+import { uppercase } from "@/helpers/string-util";
 import { LOAD_ADDITIONAL_REQUIRED_TYPES } from "@/store/_actiontypes";
 import CurrencyField from "../../components/textfield/CurrencyField.vue";
 
@@ -128,6 +133,7 @@ export default {
   data() {
     return {
       ...validations,
+      uppercase,
     };
   },
   mounted() {

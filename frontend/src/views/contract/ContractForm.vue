@@ -55,6 +55,7 @@
           <v-col cols="12" md="3" class="py-0 ma-0 my-0">
             <v-text-field
               v-model="model.name"
+              @input="model.name = uppercase(model.name)"
               label="Nome"
               class="ma-0 pa-0 form-label"
               dense
@@ -71,6 +72,7 @@
           <v-col cols="12" md="8" class="py-0 ma-0 my-0">
             <v-text-field
               v-model="model.description"
+              @input="model.description = uppercase(model.description)"
               label="Descrição"
               class="ma-0 pa-0 form-label"
               dense
@@ -120,6 +122,7 @@
 
 <script>
 import validations from "@/helpers/validations";
+import { uppercase } from "@/helpers/string-util";
 import { VueEditor } from "vue2-editor";
 
 export default {
@@ -145,6 +148,7 @@ export default {
   data() {
     return {
       ...validations,
+      uppercase,
       content: "",
       customToolbar: [
         [{ header: [false, 1, 2, 3, 4, 5, 6] }],

@@ -8,6 +8,7 @@ import br.com.cincoquatro.locacaoespaco.dto.AdditionalDto;
 import br.com.cincoquatro.locacaoespaco.dto.AdditionalRequiredTypeDto;
 import br.com.cincoquatro.locacaoespaco.model.Additional;
 import br.com.cincoquatro.locacaoespaco.model.AdditionalPackage;
+import br.com.cincoquatro.locacaoespaco.util.StringUtil;
 
 @Component
 public class AdditionalAdapter extends BaseAdapter<Additional, AdditionalDto> {
@@ -40,7 +41,7 @@ public class AdditionalAdapter extends BaseAdapter<Additional, AdditionalDto> {
 			additional = new Additional();
 
 		additional.setId(additionalDto.getId());
-		additional.setName(additionalDto.getName());
+		additional.setName(StringUtil.toUpperCase(additionalDto.getName()));
 		additional.setValue(additionalDto.getValue());
 		additional.setEnabled(additionalDto.getEnabled());
 		additional.setRequiredType(new AdditionalRequiredTypeDto().toModel(additionalDto.getRequiredType().name));
@@ -50,7 +51,7 @@ public class AdditionalAdapter extends BaseAdapter<Additional, AdditionalDto> {
 			AdditionalPackage additionalPackage = new AdditionalPackage();
 			additionalPackage.setId(additional.getId());
 			additionalPackage.setAdditional(additional);
-			additionalPackage.setDescription(additionalPackageDescription);
+			additionalPackage.setDescription(StringUtil.toUpperCase(additionalPackageDescription));
 			additional.setAdditionalPackage(additionalPackage);
 		} else
 			additional.setAdditionalPackage(null);

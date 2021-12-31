@@ -22,6 +22,7 @@
         <v-col cols="12" md="8" class="py-0 ma-0 my-0">
           <v-text-field
             v-model="model.username"
+            @input="model.username = uppercase(model.username)"
             :disabled="model.id == 1"
             onkeypress="return /^[a-zA-Z\.]$/i.test(event.key)"
             label="Usuário/login"
@@ -42,6 +43,7 @@
         <v-col cols="12" md="4" class="py-0 ma-0">
           <v-text-field
             v-model="model.firstname"
+            @input="model.firstname = uppercase(model.firstname)"
             label="Nome"
             class="ma-0 pa-0 form-label"
             dense
@@ -58,6 +60,7 @@
         <v-col cols="12" md="8" class="py-0 ma-0">
           <v-text-field
             v-model="model.lastname"
+            @input="model.lastname = uppercase(model.lastname)"
             label="Sobrenome"
             class="ma-0 pa-0 form-label"
             dense
@@ -128,6 +131,7 @@
 <script>
 import { mapState } from "vuex";
 import validations from "@/helpers/validations";
+import { uppercase } from "@/helpers/string-util";
 import { LOAD_ROLES } from "@/store/_actiontypes";
 
 export default {
@@ -152,6 +156,7 @@ export default {
   data() {
     return {
       ...validations,
+      uppercase,
     };
   },
   mounted() {

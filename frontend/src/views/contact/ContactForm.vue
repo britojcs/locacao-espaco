@@ -20,6 +20,7 @@
         <v-col cols="12" md="7" class="py-0 ma-0 my-0">
           <v-text-field
             v-model="model.name"
+            @input="model.name = uppercase(model.name)"
             label="Contato"
             class="ma-0 pa-0 form-label"
             dense
@@ -39,6 +40,7 @@
         <v-col cols="12" class="py-0 ma-0 my-0">
           <v-textarea
             v-model="model.description"
+            @input="model.description = uppercase(model.description)"
             label="Descrição/Obervação"
             class="ma-0 pa-0 form-label"
             counter="250"
@@ -79,6 +81,7 @@
 <script>
 import { mapState } from "vuex";
 import validations from "@/helpers/validations";
+import { uppercase } from "@/helpers/string-util";
 import { LOAD_CONTACT_TYPES } from "@/store/_actiontypes";
 
 export default {
@@ -103,6 +106,7 @@ export default {
   data() {
     return {
       ...validations,
+      uppercase,
     };
   },
   mounted() {
@@ -128,7 +132,7 @@ export default {
     getMaskContactType() {
       if (this.model.contactType.name.includes("PHONE"))
         return ["(##) ####-####", "(##) #####-####"];
-      return null;
+      return;
     },
   },
 };

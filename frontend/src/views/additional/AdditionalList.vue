@@ -100,6 +100,7 @@
           <template v-slot:[`item.action`]="{ item }">
             <div class="d-flex justify-end">
               <IconTip
+                v-if="item.additionalPackage"
                 icon="mdi-text-box-plus-outline"
                 tooltip="Adicional múltiplo"
                 eventname="editRecord"

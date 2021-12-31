@@ -8,6 +8,7 @@ import br.com.cincoquatro.locacaoespaco.dto.ContactDto;
 import br.com.cincoquatro.locacaoespaco.dto.ContactTypeDto;
 import br.com.cincoquatro.locacaoespaco.model.Contact;
 import br.com.cincoquatro.locacaoespaco.model.Customer;
+import br.com.cincoquatro.locacaoespaco.util.StringUtil;
 
 @Component
 public class ContactAdapter extends BaseAdapter<Contact, ContactDto> {
@@ -38,8 +39,8 @@ public class ContactAdapter extends BaseAdapter<Contact, ContactDto> {
 
 		contact.setId(contactDto.getId());
 		contact.setContactType(new ContactTypeDto().toModel(contactDto.getContactType().name));
-		contact.setName(contactDto.getName());
-		contact.setDescription(contactDto.getDescription());
+		contact.setName(StringUtil.toUpperCase(contactDto.getName()));
+		contact.setDescription(StringUtil.toUpperCase(contactDto.getDescription()));
 
 		Customer customer = new Customer();
 		customer.setId(contactDto.getCustomerId());

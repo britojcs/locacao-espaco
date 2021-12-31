@@ -5,6 +5,7 @@
         <v-col cols="12" md="8" class="py-0 ma-0 my-0">
           <v-text-field
             v-model="model.fullname"
+            @input="model.fullname = uppercase(model.fullname)"
             label="Nome completo"
             class="ma-0 pa-0 form-label"
             dense
@@ -32,7 +33,7 @@
         </v-col>
       </v-row>
       <v-row>
-        <v-col cols="12" md="2" class="py-0 ma-0 my-0">
+        <v-col cols="12" md="4" class="py-0 ma-0 my-0">
           <v-text-field
             v-model="model.cep"
             label="CEP"
@@ -44,9 +45,10 @@
             required
           />
         </v-col>
-        <v-col cols="12" md="6" class="py-0 ma-0 my-0">
+        <v-col cols="12" md="8" class="py-0 ma-0 my-0">
           <v-text-field
             v-model="model.address"
+            @input="model.address = uppercase(model.address)"
             label="Endereço"
             class="ma-0 pa-0 form-label"
             dense
@@ -54,9 +56,14 @@
             counter="80"
           />
         </v-col>
-        <v-col cols="12" md="4" class="py-0 ma-0 my-0">
+      </v-row>
+      <v-row>
+        <v-col cols="12" class="py-0 ma-0 my-0">
           <v-text-field
             v-model="model.addressComplement"
+            @input="
+              model.addressComplement = uppercase(model.addressComplement)
+            "
             label="Complemento"
             class="ma-0 pa-0 form-label"
             dense
@@ -69,6 +76,7 @@
         <v-col cols="12" md="5" class="py-0 ma-0 my-0">
           <v-text-field
             v-model="model.district"
+            @input="model.district = uppercase(model.district)"
             label="Bairro"
             class="ma-0 pa-0 form-label"
             dense
@@ -78,6 +86,7 @@
         <v-col cols="12" md="4" class="py-0 ma-0 my-0">
           <v-text-field
             v-model="model.city"
+            @input="model.city = uppercase(model.city)"
             label="Cidade"
             class="ma-0 pa-0 form-label"
             dense
@@ -127,6 +136,7 @@
 <script>
 import { mapState } from "vuex";
 import validations from "@/helpers/validations";
+import { uppercase } from "@/helpers/string-util";
 import { LOAD_STATES } from "@/store/_actiontypes";
 
 export default {
@@ -151,6 +161,7 @@ export default {
   data() {
     return {
       ...validations,
+      uppercase,
     };
   },
   mounted() {
@@ -178,10 +189,10 @@ export default {
       if (cep.length == 8) {
         fetch(`https://viacep.com.br/ws/${cep}/json/`).then((response) => {
           response.json().then((data) => {
-            this.model.address = data.logradouro;
-            this.model.addressComplement = data.complemento;
-            this.model.district = data.bairro;
-            this.model.city = data.localidade;
+            this.model.address = uppercase(data.logradouro);
+            this.model.addressComplement = uppercase(data.complemento);
+            this.model.district = uppercase(data.bairro);
+            this.model.city = uppercase(data.localidade);
             this.model.state = this.states.find(
               (state) => state.name == data.uf
             );

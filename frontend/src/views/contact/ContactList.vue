@@ -17,7 +17,7 @@
           class="elevation-1"
         >
           <template v-slot:top>
-            <div class="d-flex align-center pa-4">
+            <div class="d-flex align-center pa-4 primary lighten-5">
               <span class="primary--text font-weight-medium"
                 >Contatos de <b>{{ contactOwnerName }}</b></span
               >
@@ -124,14 +124,14 @@ export default {
     ],
     editedContact: {
       id: 0,
-      contactType: { name: "PERSONAL_PHONE", description: "Telefone pessoal" },
+      contactType: { name: "PERSONAL_PHONE", description: "TELEFONE PESSOAL" },
       name: "",
       description: "",
       customerId: 0,
     },
     defaultContact: {
       id: 0,
-      contactType: { name: "PERSONAL_PHONE", description: "Telefone pessoal" },
+      contactType: { name: "PERSONAL_PHONE", description: "TELEFONE PESSOAL" },
       name: "",
       description: "",
       customerId: 0,

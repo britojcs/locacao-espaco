@@ -12,6 +12,7 @@
                 <v-form ref="loginForm">
                   <v-text-field
                     v-model="loginForm.username"
+                    @input="loginForm.username = uppercase(loginForm.username)"
                     placeholder="Usuário"
                     prepend-icon="person"
                     :rules="[required('Usuário')]"
@@ -53,6 +54,7 @@
 import { mapState, mapActions } from "vuex";
 import { LOGIN, LOGOUT } from "@/store/_actiontypes";
 import validations from "@/helpers/validations";
+import { uppercase } from "@/helpers/string-util";
 
 export default {
   data() {
@@ -63,6 +65,7 @@ export default {
       },
       showPassword: false,
       ...validations,
+      uppercase,
     };
   },
   computed: {
