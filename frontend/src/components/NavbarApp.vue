@@ -89,7 +89,11 @@
           :key="item.text"
           :to="item.route"
           :ripple="false"
-          :disabled="item.route == '/dashboard' || item.route == '/locacoes'"
+          :disabled="
+            item.route == '/dashboard' ||
+            item.route == '/locacoes' ||
+            item.route == '/contratos'
+          "
         >
           <span>
             <v-icon small class="primary--text mr-1">{{ item.icon }}</v-icon>
