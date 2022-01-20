@@ -1,0 +1,6 @@
+ALTER TABLE users
+ADD COLUMN default_password BOOLEAN NOT NULL DEFAULT TRUE;
+
+
+
+
